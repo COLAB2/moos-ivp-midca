@@ -1,0 +1,9 @@
+//------------------------------------------------
+// pmidca config block
+
+ProcessConfig = pmidca
+{
+   AppTick   = 4
+   CommsTick = 4
+}
+
