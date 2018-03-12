@@ -18,14 +18,15 @@ ProcessConfig = ANTLER
   MSBetweenLaunches = 200
 
   Run = MOOSDB		@ NewConsole = false
+  Run = uFldHazardSensor @ NewConsole = true
   Run = uSimMarine	@ NewConsole = false
   Run = pNodeReporter	@ NewConsole = false
   Run = pMarinePID	@ NewConsole = false
   Run = pMarineViewer	@ NewConsole = false
   Run = uProcessWatch   @ NewConsole = false
   Run = pHelmIvP	@ NewConsole = false
-  Run = pmidca		@ NewConsole = false
-  Run = uFldHazardSensor @ NewConsole = false
+//Run = pmidca	@ NewConsole = false
+  
 }
 
 //------------------------------------------
@@ -166,12 +167,30 @@ ProcessConfig = pmidca
 }     
 
  ProcessConfig = uFldHazardSensor                                
-{                  
-default_hazard_width = 5                                             
-hazard_file   = hazards.txt   
-sensor_config = width=25, exp=4, class=0.80                   
-sensor_config = width=50, exp=2, class=0.60                   
-sensor_config = width=10, exp=6, class=0.93,max=1    
+{    
+  AppTick       = 4
+  CommsTick     = 4
+
+  sensor_config = width=5,  exp=8, pclass=1
+  sensor_config = width=10, exp=6, pclass=1
+  sensor_config = width=25, exp=4, pclass=1
+  sensor_config = width=50, exp=2, pclass=1
+
+  swath_length = 5  
+  swath_transparency = 0.35
+
+  show_swath=true
+  show_hazards=true
+  show_reports=30
+
+  show_pd  = true  // the default is true
+  show_pfa = true  // the default is false
+              
+  default_hazard_width = 5
+  show_detections = "nolimit"    
+  show_swath = true
+                                      
+  hazard_file   = hazards.txt     
 
 
 }     

@@ -60,42 +60,27 @@ LINK_DIRECTORIES(${IVP_LIBRARY_DIRS})
 #=============================================================================
 # Specify Compiler Flags
 #=============================================================================
-IF( ${WIN32} )
-   #---------------------------------------------
-   # Windows Compiler Flags
-   #---------------------------------------------
-   IF(MSVC)
-      # Flags for Microsoft Visual Studio
-      SET( WALL_ON OFF CACHE BOOL 
-         "tell me about all compiler warnings (-Wall) ")
-      IF(WALL_ON)
-         SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
-      ENDIF(WALL_ON)
-   ELSE(MSVC)
-      # Other Windows compilers go here
-   ENDIF(MSVC)
 
-ELSE( ${WIN32} )
-   #---------------------------------------------
-   # Linux and Apple Compiler Flags
-   #---------------------------------------------
-   # Force -fPIC because gcc complains when we don't use it with x86_64 code.
-   # Note sure why: -fPIC should only be needed for shared objects, and
-   # AFAIK, CMake gets that right when building shared objects. -CJC
-   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -g")
-   IF(CMAKE_COMPILER_IS_GNUCXX)
-      # Flags for the GNU C++ Compiler
-      SET( WALL_ON OFF CACHE BOOL 
-         "tell me about all compiler warnings (-Wall) ")
-      IF(WALL_ON)
-         SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall" -C++11)
-      ENDIF( WALL_ON)
-   ELSE(CMAKE_COMPILER_IS_GNUCXX)
-    
-   ENDIF(CMAKE_COMPILER_IS_GNUCXX)
+IF (${WIN32})
+  # Define Windows Compiler flags here
+  SET(CMAKE_CXX_FLAGS " ")
+ELSE (${WIN32})
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+ENDIF (${WIN32})
 
-ENDIF( ${WIN32} )
-
+INCLUDE(CheckCXXCompilerFlag)
+CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
+CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
+IF(COMPILER_SUPPORTS_CXX11)
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+  ADD_DEFINITIONS(-D_USE_UNIQUE_PTR)
+ELSEIF(COMPILER_SUPPORTS_CXX0X)
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+  ADD_DEFINITIONS(-D_USE_UNIQUE_PTR)
+ELSE()
+  MESSAGE(STATUS "${CMAKE_CXX_COMPILER} has no C++11 support.")
+  REMOVE_DEFINITIONS(-D_USE_UNIQUE_PTR)
+ENDIF()
 #=============================================================================
 # Add Subdirectories
 #=============================================================================
