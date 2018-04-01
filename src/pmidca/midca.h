@@ -35,12 +35,12 @@ class midca : public CMOOSApp
    double m_previous_y;
    // spped from moos DB
    double m_current_s;
-   // condition variable to first load Qroute
-   int initialize;
    // This variable is a condition variable sent to MoosDB for behavior 
    string mission;
    // points read from MIDCA
    string points;
+   // report
+   string report;
 
 
  protected:
