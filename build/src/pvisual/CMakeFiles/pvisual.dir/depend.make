@@ -123,6 +123,8 @@ src/pvisual/CMakeFiles/pvisual.dir/visual.cpp.o: /Users/sravyakondrakunta/moos-i
 src/pvisual/CMakeFiles/pvisual.dir/visual.cpp.o: ../src/pvisual/visual.cpp
 src/pvisual/CMakeFiles/pvisual.dir/visual.cpp.o: ../src/pvisual/visual.h
 src/pvisual/CMakeFiles/pvisual.dir/visual.cpp.o: ../src/pvisual/zhelpers.hpp
+src/pvisual/CMakeFiles/pvisual.dir/visual.cpp.o: /usr/local/include/zmq.h
+src/pvisual/CMakeFiles/pvisual.dir/visual.cpp.o: /usr/local/include/zmq.hpp
 
 src/pvisual/CMakeFiles/pvisual.dir/visual_Info.cpp.o: /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/ColorParse.h
 src/pvisual/CMakeFiles/pvisual.dir/visual_Info.cpp.o: /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/ReleaseInfo.h

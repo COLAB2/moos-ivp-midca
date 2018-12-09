@@ -48,10 +48,10 @@ RM = /usr/local/Cellar/cmake/3.10.1/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca
+CMAKE_SOURCE_DIR = /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/build
+CMAKE_BINARY_DIR = /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/build/CMakeFiles /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/build/CMakeFiles /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -136,6 +136,19 @@ pvisual/fast:
 	$(MAKE) -f src/pvisual/CMakeFiles/pvisual.dir/build.make src/pvisual/CMakeFiles/pvisual.dir/build
 .PHONY : pvisual/fast
 
+#=============================================================================
+# Target rules for targets named prelocate
+
+# Build rule for target.
+prelocate: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 prelocate
+.PHONY : prelocate
+
+# fast build rule for target.
+prelocate/fast:
+	$(MAKE) -f src/prelocate/CMakeFiles/prelocate.dir/build.make src/prelocate/CMakeFiles/prelocate.dir/build
+.PHONY : prelocate/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -146,6 +159,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... pmidca"
 	@echo "... pvisual"
+	@echo "... prelocate"
 .PHONY : help
 
 

@@ -10,6 +10,7 @@
 #include "midca.h"
 #include <string>
 #include "zhelpers.hpp"
+#include <unistd.h>
 
 using namespace std;
 
@@ -49,11 +50,13 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
 
   // Get the X,Y and speed coordinates from MOOSDB and publish for MIDCA
   MOOSMSG_LIST::iterator p;
-	
+
   m_current_x = -1;
   m_current_y = -1;
   m_current_s = -1;
+  m_current_h = -1;
   report = "false";
+
 
 
   for(p=NewMail.begin(); p!=NewMail.end(); p++) {
@@ -68,13 +71,18 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
     }
     else if(key == "NAV_SPEED"){
       m_current_s  = msg.GetDouble();
-      
+
+    }
+    else if(key == "NAV_HEADING"){
+        m_current_h  = msg.GetDouble();
+
     }
 
 
     else if(key == "UHZ_DETECTION_REPORT"){
       report  = msg.GetString();
       s_send (publisher_mine, "MINE:" + report);
+
     }
 
 
@@ -82,7 +90,7 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
     string key   = msg.GetKey();
     string comm  = msg.GetCommunity();
     double dval  = msg.GetDouble();
-    string sval  = msg.GetString(); 
+    string sval  = msg.GetString();
     string msrc  = msg.GetSource();
     double mtime = msg.GetTime();
     bool   mdbl  = msg.IsDouble();
@@ -90,11 +98,11 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
 #endif
    }
 
-    
 
-    if (m_current_x != -1 && m_current_y != -1 && m_current_s != -1 )
+
+    if (m_current_x != -1 && m_current_y != -1 && m_current_s != -1 && m_current_h != -1)
 	{
-	s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s));
+	s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h));
 	}
    return(true);
 }
@@ -137,15 +145,12 @@ if  ( !contents.empty() && contents.compare("M") != 0)
 // their scope is defined at pMarineViewer in alder.moos and alder.bhv files
 // for the behaviour
 Notify("mission","true");
+
 // send the new points to MOOSDB
 Notify("NEW_POINTS", contents);
 
-cout << contents;
 
 }
-
-
-  
   return(true);
 }
 
@@ -163,7 +168,7 @@ bool midca::OnStartUp()
       string original_line = *p;
       string param = stripBlankEnds(toupper(biteString(*p, '=')));
       string value = stripBlankEnds(*p);
-      
+
     }
   }
   publisher.bind("tcp://127.0.0.1:5563");
@@ -177,7 +182,7 @@ bool midca::OnStartUp()
   publisher.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
   publisher_mine.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
 
-  RegisterVariables();	
+  RegisterVariables();
   return(true);
 }
 
@@ -189,6 +194,6 @@ void midca::RegisterVariables()
   Register("NAV_X", 0);
   Register("NAV_Y", 0);
   Register("NAV_SPEED", 0);
+  Register("NAV_HEADING", 0);
   Register("UHZ_DETECTION_REPORT", 0);
 }
-

@@ -123,6 +123,8 @@ src/pmidca/CMakeFiles/pmidca.dir/midca.cpp.o: /Users/sravyakondrakunta/moos-ivp/
 src/pmidca/CMakeFiles/pmidca.dir/midca.cpp.o: ../src/pmidca/midca.cpp
 src/pmidca/CMakeFiles/pmidca.dir/midca.cpp.o: ../src/pmidca/midca.h
 src/pmidca/CMakeFiles/pmidca.dir/midca.cpp.o: ../src/pmidca/zhelpers.hpp
+src/pmidca/CMakeFiles/pmidca.dir/midca.cpp.o: /usr/local/include/zmq.h
+src/pmidca/CMakeFiles/pmidca.dir/midca.cpp.o: /usr/local/include/zmq.hpp
 
 src/pmidca/CMakeFiles/pmidca.dir/midca_Info.cpp.o: /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/ColorParse.h
 src/pmidca/CMakeFiles/pmidca.dir/midca_Info.cpp.o: /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/ReleaseInfo.h

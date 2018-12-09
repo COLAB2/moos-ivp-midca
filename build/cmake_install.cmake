@@ -1,4 +1,4 @@
-# Install script for directory: /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca
+# Install script for directory: /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/build/src/cmake_install.cmake")
+  include("/Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/build/src/cmake_install.cmake")
 
 endif()
 
@@ -46,5 +46,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

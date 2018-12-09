@@ -14,6 +14,7 @@ Behavior = BHV_Waypoint
   speed = 1.0
   perpetual = true
   updates   = NEW_POINTS
+  endflag = shipmission=true
   endflag = mission=false
   visual_hints = nextpt_color=red, nextpt_lcolor=khaki
   visual_hints = edge_color=khaki, vertex_color=white

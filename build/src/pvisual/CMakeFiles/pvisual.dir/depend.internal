@@ -60,9 +60,9 @@ src/pvisual/CMakeFiles/pvisual.dir/main.cpp.o
  /Users/sravyakondrakunta/moos-ivp/MOOS/MOOSCore/Core/libMOOS/include/MOOS/libMOOS/MOOSLib.h
  /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/ColorParse.h
  /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/MBUtils.h
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pvisual/main.cpp
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pvisual/visual.h
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pvisual/visual_Info.h
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pvisual/main.cpp
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pvisual/visual.h
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pvisual/visual_Info.h
 src/pvisual/CMakeFiles/pvisual.dir/visual.cpp.o
  /Users/sravyakondrakunta/moos-ivp/MOOS/MOOSCore/Core/libMOOS/App/include/MOOS/libMOOS/App/ClientDefines.h
  /Users/sravyakondrakunta/moos-ivp/MOOS/MOOSCore/Core/libMOOS/App/include/MOOS/libMOOS/App/MOOSApp.h
@@ -121,11 +121,13 @@ src/pvisual/CMakeFiles/pvisual.dir/visual.cpp.o
  /Users/sravyakondrakunta/moos-ivp/MOOS/MOOSCore/Core/libMOOS/Utils/include/MOOS/libMOOS/Utils/SafeList.h
  /Users/sravyakondrakunta/moos-ivp/MOOS/MOOSCore/Core/libMOOS/include/MOOS/libMOOS/MOOSLib.h
  /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/MBUtils.h
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pvisual/visual.cpp
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pvisual/visual.h
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pvisual/zhelpers.hpp
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pvisual/visual.cpp
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pvisual/visual.h
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pvisual/zhelpers.hpp
+ /usr/local/include/zmq.h
+ /usr/local/include/zmq.hpp
 src/pvisual/CMakeFiles/pvisual.dir/visual_Info.cpp.o
  /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/ColorParse.h
  /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/ReleaseInfo.h
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pvisual/visual_Info.cpp
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pvisual/visual_Info.h
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pvisual/visual_Info.cpp
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pvisual/visual_Info.h

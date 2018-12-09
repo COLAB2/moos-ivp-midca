@@ -14,6 +14,8 @@ using namespace std;
 
 zmq::context_t context(1);
 zmq::socket_t subscriber (context, ZMQ_SUB);
+zmq::socket_t publisher(context, ZMQ_PUB);
+zmq::socket_t publisher_mine(context, ZMQ_PUB);
 
 //---------------------------------------------------------
 // Constructor
@@ -36,7 +38,7 @@ visual::~visual()
 bool visual::OnNewMail(MOOSMSG_LIST &NewMail)
 {
   MOOSMSG_LIST::iterator p;
-   
+
   for(p=NewMail.begin(); p!=NewMail.end(); p++) {
     CMOOSMsg &msg = *p;
 
@@ -44,14 +46,14 @@ bool visual::OnNewMail(MOOSMSG_LIST &NewMail)
     string key   = msg.GetKey();
     string comm  = msg.GetCommunity();
     double dval  = msg.GetDouble();
-    string sval  = msg.GetString(); 
+    string sval  = msg.GetString();
     string msrc  = msg.GetSource();
     double mtime = msg.GetTime();
     bool   mdbl  = msg.IsDouble();
     bool   mstr  = msg.IsString();
 #endif
    }
-	
+
    return(true);
 }
 
@@ -64,7 +66,7 @@ bool visual::OnConnectToServer()
    // possibly look at the mission file?
    // m_MissionReader.GetConfigurationParam("Name", <string>);
    // m_Comms.Register("VARNAME", 0);
-	
+
    RegisterVariables();
    return(true);
 }
@@ -76,20 +78,33 @@ bool visual::OnConnectToServer()
 bool visual::Iterate()
 {
 
+
+
 std::string contents = s_recv (subscriber);
-// check to see if there is a message from midca
+
+
+// check to see if there is a message from midca/ships
 if  ( !contents.empty() && contents.compare("M") != 0)
 {
+// make the mine disappear
+// contents has the label for the mine
+string report = "x=0,y=0,width=0, label=" + contents;
 
-Notify("VIEW_MARKER",contents);
+Notify("VIEW_MARKER",report);
 
+// inform ships that there is no mine
+s_sendmore(publisher, "M");
+s_send(publisher,contents);
 
+// inform midca that the hazard is removed
+s_send(publisher_mine, "mine"+contents);
 
 }
 
 // Just to view qroute and Ga1 and Ga2
 if (initialize == 0)
 {
+
 
 
   // GA2
@@ -108,7 +123,7 @@ if (initialize == 0)
   Notify("VIEW_SEGLIST",s);
 
 
-  
+
 initialize = 1;
 }
 
@@ -131,7 +146,7 @@ bool visual::OnStartUp()
       string original_line = *p;
       string param = stripBlankEnds(toupper(biteString(*p, '=')));
       string value = stripBlankEnds(*p);
-      
+
       if(param == "FOO") {
         //handled
       }
@@ -140,14 +155,20 @@ bool visual::OnStartUp()
       }
     }
   }
- subscriber.connect("tcp://127.0.0.1:5565");
+  // this is to make the mine disappear
+  subscriber.bind("tcp://127.0.0.1:5565");
+  // this is to inform the disappeared mine to ships
+  publisher.bind("tcp://127.0.0.1:5570");
+  // to inform midca that hazard is removed
+  publisher_mine.bind("tcp://127.0.0.1:5580");
+
   subscriber.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
   int timeout = 1;
   int count = 2;
   subscriber.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
   subscriber.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
-  
-  RegisterVariables();	
+  publisher_mine.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
+  RegisterVariables();
   return(true);
 }
 
@@ -158,4 +179,3 @@ void visual::RegisterVariables()
 {
   // Register("FOOBAR", 0);
 }
-

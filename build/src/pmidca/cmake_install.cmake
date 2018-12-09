@@ -1,4 +1,4 @@
-# Install script for directory: /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pmidca
+# Install script for directory: /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pmidca
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

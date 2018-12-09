@@ -35,6 +35,7 @@ class midca : public CMOOSApp
    double m_previous_y;
    // spped from moos DB
    double m_current_s;
+   double m_current_h;
    // This variable is a condition variable sent to MoosDB for behavior 
    string mission;
    // points read from MIDCA

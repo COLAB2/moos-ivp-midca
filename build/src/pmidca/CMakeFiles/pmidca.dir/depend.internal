@@ -60,9 +60,9 @@ src/pmidca/CMakeFiles/pmidca.dir/main.cpp.o
  /Users/sravyakondrakunta/moos-ivp/MOOS/MOOSCore/Core/libMOOS/include/MOOS/libMOOS/MOOSLib.h
  /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/ColorParse.h
  /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/MBUtils.h
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pmidca/main.cpp
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pmidca/midca.h
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pmidca/midca_Info.h
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pmidca/main.cpp
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pmidca/midca.h
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pmidca/midca_Info.h
 src/pmidca/CMakeFiles/pmidca.dir/midca.cpp.o
  /Users/sravyakondrakunta/moos-ivp/MOOS/MOOSCore/Core/libMOOS/App/include/MOOS/libMOOS/App/ClientDefines.h
  /Users/sravyakondrakunta/moos-ivp/MOOS/MOOSCore/Core/libMOOS/App/include/MOOS/libMOOS/App/MOOSApp.h
@@ -121,11 +121,13 @@ src/pmidca/CMakeFiles/pmidca.dir/midca.cpp.o
  /Users/sravyakondrakunta/moos-ivp/MOOS/MOOSCore/Core/libMOOS/Utils/include/MOOS/libMOOS/Utils/SafeList.h
  /Users/sravyakondrakunta/moos-ivp/MOOS/MOOSCore/Core/libMOOS/include/MOOS/libMOOS/MOOSLib.h
  /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/MBUtils.h
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pmidca/midca.cpp
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pmidca/midca.h
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pmidca/zhelpers.hpp
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pmidca/midca.cpp
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pmidca/midca.h
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pmidca/zhelpers.hpp
+ /usr/local/include/zmq.h
+ /usr/local/include/zmq.hpp
 src/pmidca/CMakeFiles/pmidca.dir/midca_Info.cpp.o
  /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/ColorParse.h
  /Users/sravyakondrakunta/moos-ivp/ivp/src/lib_mbutil/ReleaseInfo.h
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pmidca/midca_Info.cpp
- /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca/src/pmidca/midca_Info.h
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pmidca/midca_Info.cpp
+ /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/src/pmidca/midca_Info.h
