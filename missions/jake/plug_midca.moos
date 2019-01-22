@@ -1,9 +1,0 @@
-//---------------------------------------------------------
-// pmidca Config Block  (Created from Plugin)
-
-ProcessConfig = pmidca                                         
-{                                                               
-  AppTick   = 4                                                 
-  CommsTick = 4                                                 
-}   
-
