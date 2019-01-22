@@ -1,1 +1,0 @@
-/usr/bin/c++   -std=c++11   CMakeFiles/pmidca.dir/midca.cpp.o CMakeFiles/pmidca.dir/midca_Info.cpp.o CMakeFiles/pmidca.dir/main.cpp.o  -o ../../../bin/pmidca  -L/home/sampath/moos-ivp/lib -Wl,-rpath,/home/sampath/moos-ivp/lib /home/sampath/moos-ivp/build/MOOS/MOOSCore/lib/libMOOS.a -lmbutil -lm -lpthread /usr/lib/x86_64-linux-gnu/libzmq.so 

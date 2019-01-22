@@ -1,1 +1,0 @@
-/usr/bin/c++   -std=c++11   CMakeFiles/pvisual.dir/visual.cpp.o CMakeFiles/pvisual.dir/visual_Info.cpp.o CMakeFiles/pvisual.dir/main.cpp.o  -o ../../../bin/pvisual  -L/home/sampath/moos-ivp/lib -Wl,-rpath,/home/sampath/moos-ivp/lib /home/sampath/moos-ivp/build/MOOS/MOOSCore/lib/libMOOS.a -lmbutil -lm -lpthread /usr/lib/x86_64-linux-gnu/libzmq.so 

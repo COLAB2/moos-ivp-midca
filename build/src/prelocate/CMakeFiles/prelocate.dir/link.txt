@@ -1,1 +1,0 @@
-/usr/bin/c++   -std=c++11   CMakeFiles/prelocate.dir/relocate.cpp.o CMakeFiles/prelocate.dir/relocate_Info.cpp.o CMakeFiles/prelocate.dir/main.cpp.o  -o ../../../bin/prelocate  -L/home/sampath/moos-ivp/lib -Wl,-rpath,/home/sampath/moos-ivp/lib /home/sampath/moos-ivp/build/MOOS/MOOSCore/lib/libMOOS.a -lmbutil -lm -lpthread /usr/lib/x86_64-linux-gnu/libzmq.so 
