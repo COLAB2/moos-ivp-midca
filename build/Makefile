@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/3.10.1/bin/cmake
+CMAKE_COMMAND = /usr/local/lib/python2.7/dist-packages/cmake/data/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/3.10.1/bin/cmake -E remove -f
+RM = /usr/local/lib/python2.7/dist-packages/cmake/data/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1
+CMAKE_SOURCE_DIR = /home/sampath/moos-ivp/moos-ivp-midca
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/build
+CMAKE_BINARY_DIR = /home/sampath/moos-ivp/moos-ivp-midca/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/build
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/Cellar/cmake/3.10.1/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/local/lib/python2.7/dist-packages/cmake/data/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -69,8 +69,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/Cellar/cmake/3.10.1/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/local/lib/python2.7/dist-packages/cmake/data/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/build/CMakeFiles /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sampath/moos-ivp/moos-ivp-midca/build/CMakeFiles /home/sampath/moos-ivp/moos-ivp-midca/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sravyakondrakunta/moos-ivp/moos-ivp-midca1/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sampath/moos-ivp/moos-ivp-midca/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -149,6 +149,19 @@ prelocate/fast:
 	$(MAKE) -f src/prelocate/CMakeFiles/prelocate.dir/build.make src/prelocate/CMakeFiles/prelocate.dir/build
 .PHONY : prelocate/fast
 
+#=============================================================================
+# Target rules for targets named pmine_distributor
+
+# Build rule for target.
+pmine_distributor: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pmine_distributor
+.PHONY : pmine_distributor
+
+# fast build rule for target.
+pmine_distributor/fast:
+	$(MAKE) -f src/pmine_distributor/CMakeFiles/pmine_distributor.dir/build.make src/pmine_distributor/CMakeFiles/pmine_distributor.dir/build
+.PHONY : pmine_distributor/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -160,6 +173,7 @@ help:
 	@echo "... pmidca"
 	@echo "... pvisual"
 	@echo "... prelocate"
+	@echo "... pmine_distributor"
 .PHONY : help
 
 

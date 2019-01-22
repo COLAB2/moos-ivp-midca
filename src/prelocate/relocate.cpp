@@ -28,7 +28,7 @@
 using namespace std;
 zmq::context_t context(1);
 zmq::socket_t subscriber (context, ZMQ_SUB);
-
+zmq::socket_t subscriber_add_mine (context, ZMQ_SUB);
 zmq::socket_t publisher_mine(context, ZMQ_PUB);
 
 //---------------------------------------------------------
@@ -70,10 +70,14 @@ relocate::relocate()
 
   start = -1.0;
   stop_lock = 0;
+
+  // distance
+  threshold_distance = 3;
   // group delays
-  delay_group1 = 1.5;
-  delay_group2 = 1.75;
-  filename = "../../missions/new/hazards1.txt" ;
+  delay_group1 = 0.0;
+  delay_group2 = 0.3;
+  //filename = "/home/sampath/moos-ivp/moos-ivp-midca/missions/new/hazards.txt";
+  filename = "../../missions/new/hazards5.txt" ;
 }
 
 //---------------------------------------------------------
@@ -178,6 +182,68 @@ double distanceCalculate(double x1, double y1, double x2, double y2)
 }
 
 
+// supporting function to add mines to respective arrays
+bool relocate::hazard_feed(string line)
+{
+  std::string line_label;
+  std::string line_y;
+  line = line.replace(0,9,"");
+  for (int i =0 ; i < line.length() ; i++)
+   {
+
+       if (line[i] == ',')
+       {
+           line_y = line;
+           line_y = line_y.replace(0,i+1,"");
+           line = line.replace(i,line.length(),"");
+           line = line.replace(0,2,"");
+           double temp = std::stod( line);
+           x[index_x] = temp;
+           cout << temp << "  ";
+           index_x = index_x + 1;
+           //x[index_x] = std::stoi( line) ;
+           //index_x = index_x + 1;
+           break;
+   }
+
+
+  }
+
+  for (int i =0 ; i < line_y.length() ; i++)
+   {
+       if (line_y[i] == ',')
+       {
+           line_label = line_y;
+           line_label = line_label.replace(0,i+1,"");
+           line_y = line_y.replace(i,line_y.length(),"");
+           line_y = line_y.replace(0,2,"");
+
+           double temp = std::stod( line_y);
+           y[index_y] = temp;
+           cout << temp << "  ";
+           index_y = index_y + 1;
+            break;
+   }
+  }
+  for (int i =0 ; i < line_label.length() ; i++)
+   {
+       if (line_label[i] == ',')
+       {
+           line_label = line_label.replace(i,line_label.length(),"");
+           line_label = line_label.replace(0,7,"");
+           int temp = std::stoi(line_label);
+           cout << temp << " \n";
+           label[index_label] = temp;
+           index_label = index_label + 1;
+            break;
+   }
+  }
+
+  return (true);
+}
+
+
+
 // Procedure: Iterate()
 //            happens AppTick times per second
 
@@ -228,11 +294,20 @@ if (lock == 0)
   }
   }
 
+  contents = s_recv (subscriber_add_mine);
+  if  ( !contents.empty() && contents.compare("M") != 0)
+  {
+    hazard_feed(contents);
+
+  }
+
+
+
 newreport = newreport + "Name=" + name + ",";
 for (int i =0 ; i < index_x ; i++)
 {
     double distance =  distanceCalculate(x[i],y[i],m_current_x,m_current_y)  ;
-    if ( distance < 5)
+    if ( distance < threshold_distance)
       {
         s_sendmore(publisher_mine,"M");
         s_send(publisher_mine,to_string(label[i]));
@@ -295,6 +370,8 @@ newreport = "" ;
 return(true);
 }
 
+
+
 //---------------------------------------------------------
 // Procedure: OnStartUp()
 //            happens before connection is open
@@ -321,67 +398,12 @@ bool relocate::OnStartUp()
   }
 
 
-
   std::string line;
-  std::string line_y;
-  std::string line_label;
   std::ifstream infile(filename);
   while (std::getline(infile, line))
   {
 
-  line = line.replace(0,9,"");
-  string line_y;
-  for (int i =0 ; i < line.length() ; i++)
-   {
-
-
-       if (line[i] == ',')
-       {
-           line_y = line;
-           line_y = line_y.replace(0,i+1,"");
-           line = line.replace(i,line.length(),"");
-           line = line.replace(0,2,"");
-           double temp = std::stod( line);
-           x[index_x] = temp;
-           index_x = index_x + 1;
-           //x[index_x] = std::stoi( line) ;
-           //index_x = index_x + 1;
-           break;
-   }
-
-
-  }
-
-  for (int i =0 ; i < line_y.length() ; i++)
-   {
-       if (line_y[i] == ',')
-       {
-           line_label = line_y;
-           line_label = line_label.replace(0,i+1,"");
-           line_y = line_y.replace(i,line_y.length(),"");
-           line_y = line_y.replace(0,2,"");
-
-           double temp = std::stod( line_y);
-           y[index_y] = temp;
-           index_y = index_y + 1;
-            break;
-   }
-  }
-
-  for (int i =0 ; i < line_label.length() ; i++)
-   {
-       if (line_label[i] == ',')
-       {
-           line_label = line_label.replace(i,line_label.length(),"");
-           line_label = line_label.replace(0,7,"");
-           int temp = std::stoi(line_label);
-           cout << temp << "\n";
-           label[index_label] = temp;
-           index_label = index_label + 1;
-            break;
-   }
-  }
-
+    hazard_feed(line);
 
 
   }
@@ -393,12 +415,16 @@ outfile << name + ",1" << "\n" ;
 outfile.close();
 publisher_mine.connect("tcp://127.0.0.1:5565");
 subscriber.connect("tcp://127.0.0.1:5570");
+subscriber_add_mine.connect("tcp://127.0.0.1:5522");
 subscriber.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
+subscriber_add_mine.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
  int timeout = 1;
  int count = 2;
- subscriber.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
- subscriber.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
- publisher_mine.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
+subscriber.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
+subscriber.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
+subscriber_add_mine.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
+subscriber_add_mine.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
+publisher_mine.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
 start = clock();
 RegisterVariables();
   return(true);

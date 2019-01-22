@@ -18,7 +18,6 @@ Processconfig = ANTLER
 
   Run = MOOSDB             @ NewConsole = false
   Run = uSimMarine         @ NewConsole = false
-//  Run = pNodeReporter      @ NewConsole = false
   Run = pMarinePID         @ NewConsole = false
   Run = pHelmIvP           @ NewConsole = false
   Run = uProcessWatch      @ NewConsole = false
@@ -26,7 +25,6 @@ Processconfig = ANTLER
   Run = pShare             @ NewConsole = false
   Run = pHostInfo          @ NewConsole = false
   Run = uFldNodeBroker     @ NewConsole = false
-//  Run = uFldHazardMgr      @ NewConsole = false
 
 
 }
@@ -36,6 +34,7 @@ ProcessConfig = prelocate
   AppTick   = 7
   CommsTick = 7
 }
+
 
 
 //--------------------------------------------------

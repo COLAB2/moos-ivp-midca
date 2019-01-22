@@ -1,0 +1,9 @@
+//------------------------------------------------
+// pmine_distributor config block
+
+ProcessConfig = pmine_distributor
+{
+   AppTick   = 4
+   CommsTick = 4
+}
+

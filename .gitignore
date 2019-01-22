@@ -1,0 +1,20 @@
+# development directories
+build
+bin
+lib
+.DS_Store
+.DS_Store~HEAD
+
+#ignore temporary backup files
+*~
+
+# moos temporary targ files
+*targ_
+
+#data
+scores.csv
+mines_ga1.csv
+mines_ga2.csv
+mines_qroute.csv
+
+

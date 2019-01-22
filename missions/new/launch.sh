@@ -4,7 +4,7 @@
 #-------------------------------------------------------
 TIME_WARP= 7
 JUST_MAKE="no"
-HAZARD_FILE="hazards1.txt"
+HAZARD_FILE="hazards5.txt"
 PEN_MISSED_HAZ=150
 PEN_FALARM=25
 MAX_TIME=7200

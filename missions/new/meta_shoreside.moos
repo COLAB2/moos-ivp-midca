@@ -20,6 +20,7 @@ Processconfig = ANTLER
   Run = pvisual	         @ NewConsole = false
   Run = uFldShoreBroker  @ NewConsole = false
   Run = uFldHazardSensor @ NewConsole = false
+  Run = pmine_distributor @ NewConsole = false
 
 }
 
@@ -40,6 +41,15 @@ ProcessConfig = pShare
   input = route = multicast_9
 }
 
+
+//---------------------------------------------------------
+// pmine_distributer Config Block
+
+ProcessConfig = pmine_distributer
+{
+  AppTick    = 2
+  CommsTick  = 2
+}
 
 //--------------------------------------------------
 // uFldShoreBroker Configuration Block
@@ -85,13 +95,11 @@ ProcessConfig = uFldHazardSensor
 
   show_pd = false
   show_pfa = false
-  sensor_config = width=5,  exp=8, pclass=0.88, max=1
-  sensor_config = width=10, exp=6, pclass=1
-  sensor_config = width=15, exp=8, pclass=1
+  sensor_config = width=5, exp=8, pclass=0.88, max=1
+  sensor_config = width=10, exp=8, pclass=1
   sensor_config = width=50, exp=8, pclass=1
 
   show_detections = 5
-  swath_length  = 15
 
   max_turn_rate = 20.0
 
@@ -109,6 +117,7 @@ ProcessConfig = uFldHazardSensor
 
   show_swath=true
   show_hazards=true
+  swath_length  = 15
 
   hazard_file   = $(HAZARD_FILE)
 

@@ -18,6 +18,7 @@ INCLUDE_DIRECTORIES(${LOCAL_LIBRARY_DIRS})
 ADD_SUBDIRECTORY(pmidca)
 ADD_SUBDIRECTORY(pvisual)
 ADD_SUBDIRECTORY(prelocate)
+ADD_SUBDIRECTORY(pmine_distributor)
 
 ##############################################################################
 #                           END of CMakeLists.txt
