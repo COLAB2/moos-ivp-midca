@@ -29,6 +29,8 @@ class mine_distributor : public CMOOSApp
    int mine_count;
    clock_t start;
    std::string pattern;
+   double slope;
+   double intercept;
    double delay;
    double delay_ga1;
    double delay_qroute;
@@ -36,6 +38,8 @@ class mine_distributor : public CMOOSApp
    double radius;
    double circle_increment;
    double increment;
+   double line_increment;
+   int overflow_flag;
    double ga1_center_x;
    double ga1_center_y;
    double qroute_center_x;
@@ -48,6 +52,7 @@ class mine_distributor : public CMOOSApp
    double ga2_final_x;
    double qroute_area_init_x;
    double qroute_area_final_x;
+
 
    bool Line_pattern(double duration);
    bool Circle_pattern(double duration);

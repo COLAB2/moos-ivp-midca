@@ -1,25 +1,25 @@
 ##############################################################################
-# FILE:        moos-ivp-extend/README
+# FILE:        moos-ivp-midca/README
 # DATE:        2014/01/02
-# DESCRIPTION: Contains important information regarding the moos-ivp-extend
+# DESCRIPTION: Contains important information regarding the moos-ivp-midca
 #              repository.
 ##############################################################################
 
 #=============================================================================
 # Introduction
 #=============================================================================
-The moos-ivp-extend repository contains examples for extending the MOOS-IvP
+The moos-ivp-midca repository contains examples for extending the MOOS-IvP
 Autonomy system. This includes a MOOS application and an IvP behavior.
 
 
 #=============================================================================
 # Directory Structure
 #=============================================================================
-The directory structure for the moos-ivp-extend is decribed below:
+The directory structure for the moos-ivp-midca is decribed below:
 
 bin              - Directory for generated executable files
 build            - Directory for build object files
-build.sh         - Script for building moos-ivp-extend
+build.sh         - Script for building moos-ivp-midca
 CMakeLists.txt   - CMake configuration file for the project
 data             - Directory for storing data
 lib              - Directory for generated library files
@@ -71,12 +71,13 @@ additional help.
 #=============================================================================
 # Environment variables
 #=============================================================================
-The moos-ivp-extend binaries files should be added to your path to allow them
+The moos-ivp-midca binaries files should be added to your path to allow them
 to be launched from pAntler. 
 
-In order for generated IvP Behaviors to be recognized by the IvP Helm, you
-should add the library directory to the "IVP_BEHAVIOR_DIRS" environment 
-variable.
+add "moos-ivp-midca/bin" to your PATH environment variable.
+
+We normally just add lines to our ~/.bashrc or ~/.cshrc files to always append
+these two directories to the PATH environment variable.
 
 ##############################################################################
 #                               END of README

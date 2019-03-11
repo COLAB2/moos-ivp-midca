@@ -74,10 +74,10 @@ relocate::relocate()
   // distance
   threshold_distance = 3;
   // group delays
-  delay_group1 = 0.0;
-  delay_group2 = 0.3;
+  delay_group1 = 2.5;
+  delay_group2 = 3.5;
   //filename = "/home/sampath/moos-ivp/moos-ivp-midca/missions/new/hazards.txt";
-  filename = "../../missions/new/hazards5.txt" ;
+  filename = "../../missions/gatars/hazards5.txt" ;
 }
 
 //---------------------------------------------------------

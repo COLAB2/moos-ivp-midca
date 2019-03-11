@@ -29,22 +29,27 @@ mine_distributor::mine_distributor()
   lock = 0;
   start = 0;
   delay = 0.00;
-  delay_ga1 = 0.00;
-  delay_qroute = 0.04;
-  delay_ga2 = 0.06;
-  pattern = "circle";
+  delay_ga1 = 0.01;
+  delay_qroute = 0.02;
+  delay_ga2 = 0.03;
+  pattern = "line";
 
   // For Line
-  ga1_init_x = 7.0;
-  ga2_init_x = 140;
-  ga1_final_x = 30.0;
-  ga2_final_x = 160;
-  qroute_area_init_x = 54;
-  qroute_area_final_x = 108;
+  slope = 0.1;
+  intercept = -75;
+  ga1_init_x = 2.0;
+  ga2_init_x = 132;
+  ga1_final_x = 37.0;
+  ga2_final_x = 165;
+  qroute_area_init_x = 52;
+  qroute_area_final_x = 120;
+  overflow_flag = 2;
+
+
 
   // Circle
-  radius = 10;
-  circle_increment = 0;
+  radius = 12;
+  circle_increment = 5;
   ga1_center_x = 17;
   ga1_center_y = -77;
   qroute_center_x = 79;
@@ -53,10 +58,17 @@ mine_distributor::mine_distributor()
   ga2_center_y = -75;
 
   // no:of mines and label
-  count = 100;
+  count = 2;
   mine_count = 0;
-  total_mines = 50;
-  increment = 360/(total_mines/17) ;
+  total_mines = 100;
+
+  line_increment = 20;
+
+
+  if (pattern == "line")
+    increment = 0;
+  if (pattern == "circle")
+    increment = 360/(total_mines/17) ;
 }
 
 //---------------------------------------------------------
@@ -116,72 +128,125 @@ bool mine_distributor::Line_pattern(double duration)
 
   if (duration > delay_ga1 && lock == 0)
   {
-    double y = -0.8 * ga1_init_x -500/7;
-    string content = "x=" +std::to_string(ga1_init_x)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
-    s_sendmore(publisher,"M");
-    s_send(publisher,content);
-
-    string content_add = "hazard = x=" +std::to_string(ga1_init_x)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
-    s_sendmore(publisher_mine,"M");
-    s_send(publisher_mine,content_add);
-
-    count ++;
-    ga1_init_x += 5;
-    if (ga1_init_x >= ga1_final_x )
+    if (mine_count >= total_mines/3 )
+    {
       lock = 1;
+      increment = line_increment;
+      overflow_flag = 2;
+    }
 
-      // for statistical learning data
-    std::ofstream outfile;
-    outfile.open("mines_ga1.csv", std::ios_base::app);
-    outfile << std::to_string(count) + "," + std::to_string(ga1_init_x) + "," + std::to_string(y) << "\n" ;
-    outfile.close();
+    else if ((ga1_init_x + increment) >= ga1_final_x )
+        {
+        increment =  (line_increment/ overflow_flag)  ;
+        overflow_flag = overflow_flag * 2;
+        }
+    //else if ( (ga1_init_x + increment) <= ga1_init_x )
+    //  increment =  increment + 5 ;
+   else
+   {
+     double y = slope * ( ga1_init_x + increment ) + intercept;
+     string content = "x=" +std::to_string(ga1_init_x + increment )+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
+     s_sendmore(publisher,"M");
+     s_send(publisher,content);
 
-  }
+     string content_add = "hazard = x=" +std::to_string(ga1_init_x + increment )+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
+     s_sendmore(publisher_mine,"M");
+     s_send(publisher_mine,content_add);
+
+     // for statistical learning data
+     std::ofstream outfile;
+     outfile.open("mines_ga1.csv", std::ios_base::app);
+     outfile << std::to_string(count) + "," + std::to_string(ga1_init_x + increment) + "," + std::to_string(y) << "\n" ;
+     outfile.close();
+
+     count ++;
+     mine_count ++ ;
+
+     increment += line_increment;
+    }
+}
+
   else if (duration > delay_qroute && lock == 1)
   {
-    int y = 0.8 * qroute_area_init_x - 1000/7;
-    string content = "x=" +std::to_string(qroute_area_init_x)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
-    s_sendmore(publisher,"M");
-    s_send(publisher,content);
 
-    string content_add = "hazard = x=" +std::to_string(qroute_area_init_x)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
-    s_sendmore(publisher_mine,"M");
-    s_send(publisher_mine,content_add);
 
-    count ++;
-    qroute_area_init_x += 5;
-    if (qroute_area_init_x >= qroute_area_final_x)
+    if (mine_count >= (2*total_mines/3) )
+    {
       lock = 2;
+      increment = line_increment;
+      overflow_flag = 2;
+    }
+    else if ((qroute_area_init_x + increment) >= qroute_area_final_x )
+    {
+        increment =  (line_increment / overflow_flag) ;
+        overflow_flag = overflow_flag * 2;
+    }
+   else
+   {
+     int y = slope * (qroute_area_init_x + increment ) + intercept;
+     string content = "x=" +std::to_string(qroute_area_init_x + increment)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
+     s_sendmore(publisher,"M");
+     s_send(publisher,content);
 
-      // for statistical learning data
-      std::ofstream outfile;
-      outfile.open("mines_qroute.csv", std::ios_base::app);
-      outfile << std::to_string(count) + "," + std::to_string(qroute_area_init_x) + "," + std::to_string(y) << "\n" ;
-      outfile.close();
+     string content_add = "hazard = x=" +std::to_string(qroute_area_init_x + increment)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
+     s_sendmore(publisher_mine,"M");
+     s_send(publisher_mine,content_add);
 
+     // for statistical learning data
+     std::ofstream outfile;
+     outfile.open("mines_qroute.csv", std::ios_base::app);
+     outfile << std::to_string(count) + "," + std::to_string(qroute_area_init_x + increment) + "," + std::to_string(y) << "\n" ;
+     outfile.close();
+
+     count ++;
+     mine_count ++ ;
+    increment += line_increment;
+    }
   }
+
   else if (duration > delay_ga2 && lock == 2)
   {
-    int y = -0.8 * ga2_init_x + 200/7;
-    string content = "x=" +std::to_string(ga2_init_x)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
-    s_sendmore(publisher,"M");
-    s_send(publisher,content);
 
-    string content_add = "hazard = x=" +std::to_string(ga2_init_x)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
-    s_sendmore(publisher_mine,"M");
-    s_send(publisher_mine,content_add);
-
-    count ++;
-    ga2_init_x += 5;
-    if (ga2_init_x >= ga2_final_x )
+    if (mine_count >= total_mines )
+    {
       lock = 3;
+      increment = line_increment;
+      overflow_flag = 2;
+    }
+    else if ((ga2_init_x + increment) >= ga2_final_x )
+    {
+        increment =  (line_increment/overflow_flag) ;
+        overflow_flag = 2 * overflow_flag;
+      }
+    //else if ( (ga2_init_x + increment) <= ga2_init_x )
+    //    increment += 5 ;
+   else
+   {
 
-    // for statistical learning data
-    std::ofstream outfile;
-    outfile.open("mines_ga2.csv", std::ios_base::app);
-    outfile << std::to_string(count) + "," + std::to_string(ga2_init_x) + "," + std::to_string(y) << "\n" ;
-    outfile.close();
+     int y = slope * (ga2_init_x + increment ) + intercept;
+     string content = "x=" +std::to_string(ga2_init_x + increment)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
+     s_sendmore(publisher,"M");
+     s_send(publisher,content);
+
+     string content_add = "hazard = x=" +std::to_string(ga2_init_x + increment)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
+     s_sendmore(publisher_mine,"M");
+     s_send(publisher_mine,content_add);
+
+     // for statistical learning data
+     std::ofstream outfile;
+     outfile.open("mines_ga2.csv", std::ios_base::app);
+     outfile << std::to_string(count) + "," + std::to_string(ga2_init_x + increment) + "," + std::to_string(y) << "\n" ;
+     outfile.close();
+
+     count ++;
+     mine_count ++ ;
+     increment += line_increment;
+   }
+
+
+
   }
+
   else
   {
     return (true);

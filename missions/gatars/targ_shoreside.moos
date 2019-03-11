@@ -5,7 +5,10 @@ ServerHost = localhost
 ServerPort = 9000
 Community  = shoreside
 
-#include plug_origin_warp.moos
+MOOSTimeWarp = 8
+LatOrigin  = 43.825300 
+LongOrigin = -70.330400 
+
 
 //--------------------------------------------------------
 
@@ -26,7 +29,18 @@ Processconfig = ANTLER
 
 
 
-#include plug_pHostInfo.moos
+//--------------------------------------------------
+// pHostInfo configuration block from plugin
+
+ProcessConfig = pHostInfo
+{
+  AppTick 	= 2
+  CommsTick 	= 2
+
+  DEFAULT_HOSTIP = localhost
+}
+
+
 
 
 //---------------------------------------------------------
@@ -37,7 +51,7 @@ ProcessConfig = pShare
   AppTick    = 2
   CommsTick  = 2
 
-  input = route = $(SHOREIP):$(SHORE_LISTEN)
+  input = route = localhost:9200
   input = route = multicast_9
 }
 
@@ -119,7 +133,7 @@ ProcessConfig = uFldHazardSensor
   show_hazards=true
   swath_length  = 10
 
-  hazard_file   = $(HAZARD_FILE)
+  hazard_file   = hazards5.txt
 
 }
 
@@ -165,3 +179,4 @@ ProcessConfig = pvisual
   AppTick   = 1
   CommsTick = 1
 }
+
