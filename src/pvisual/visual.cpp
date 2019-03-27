@@ -88,10 +88,10 @@ if (initialize == 0)
   Notify("VIEW_POLYGON",s);
 
   // Qroute
-  s= "pts={-105,-49:245,-49},  label= QROUTE";
+  s= "pts={-38,0:272,0},  label= QROUTE";
   Notify("VIEW_SEGLIST",s);
 
-  s= "pts={-113,-99:218,-100}";
+  s= "pts={-121,-150:212,-150}";
   Notify("VIEW_SEGLIST",s);
 
 
