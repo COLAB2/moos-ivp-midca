@@ -77,8 +77,8 @@ bool visual::Iterate()
 if (initialize == 0)
 {
 
-
-
+  string s ="";
+  /*
   // GA2
   string s = "radial:: x=150, y=-80, radius=20, pts=8, snap=1, label= GA2";
   Notify("VIEW_POLYGON",s);
@@ -86,7 +86,7 @@ if (initialize == 0)
   // GA1
   s = "radial:: x=20, y=-80, radius=20, pts=8, snap=1,  label= GA1";
   Notify("VIEW_POLYGON",s);
-
+*/
   // Qroute
   s= "pts={-38,0:272,0},  label= QROUTE";
   Notify("VIEW_SEGLIST",s);

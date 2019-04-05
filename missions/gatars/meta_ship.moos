@@ -28,8 +28,8 @@ Processconfig = ANTLER
 
 ProcessConfig = prelocate
 {
-  AppTick   = 7
-  CommsTick = 7
+  AppTick   = 5
+  CommsTick = 5
 }
 
 

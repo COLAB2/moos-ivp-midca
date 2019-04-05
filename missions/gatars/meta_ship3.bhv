@@ -3,7 +3,7 @@
 initialize   DEPLOY = false
 initialize   RETURN = false
 initialize   GROUP2 = false
-initialize   GROUP20 = false
+initialize   GROUP21 = false
 
 //----------------------------------------------
 
@@ -13,8 +13,8 @@ Behavior = BHV_Waypoint
   pwt       = 100
   condition = (GROUP2==true)
   speed = 1.0
-  point = 220,-77
-  endflag = GROUP20=true
+  point = 238,-33
+  endflag = GROUP21=true
   visual_hints = nextpt_color=red, nextpt_lcolor=khaki
   visual_hints = edge_color=khaki, vertex_color=white
   visual_hints = edge_size=1, vertex_size=4

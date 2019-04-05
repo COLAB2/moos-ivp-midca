@@ -35,11 +35,11 @@ mine_distributor::mine_distributor()
   pattern = "line";
 
   // For Line
-  slope = 0.1;
-  intercept = -75;
-  ga1_init_x = 2.0;
+  slope = 0.7;
+  intercept = -200;
+  ga1_init_x = 85;
   ga2_init_x = 132;
-  ga1_final_x = 37.0;
+  ga1_final_x = 200;
   ga2_final_x = 165;
   qroute_area_init_x = 52;
   qroute_area_final_x = 120;
@@ -48,8 +48,8 @@ mine_distributor::mine_distributor()
 
 
   // Circle
-  radius = 12;
-  circle_increment = 5;
+  radius = 30;
+  circle_increment = 20;
   ga1_center_x = 17;
   ga1_center_y = -77;
   qroute_center_x = 79;
@@ -58,9 +58,9 @@ mine_distributor::mine_distributor()
   ga2_center_y = -75;
 
   // no:of mines and label
-  count = 2;
+  count = 200;
   mine_count = 0;
-  total_mines = 100;
+  total_mines = 50;
 
   line_increment = 20;
 
@@ -130,7 +130,7 @@ bool mine_distributor::Line_pattern(double duration)
   {
     if (mine_count >= total_mines/3 )
     {
-      lock = 1;
+      lock = 0;
       increment = line_increment;
       overflow_flag = 2;
     }
@@ -153,11 +153,19 @@ bool mine_distributor::Line_pattern(double duration)
      s_sendmore(publisher_mine,"M");
      s_send(publisher_mine,content_add);
 
+     /*
      // for statistical learning data
      std::ofstream outfile;
      outfile.open("mines_ga1.csv", std::ios_base::app);
      outfile << std::to_string(count) + "," + std::to_string(ga1_init_x + increment) + "," + std::to_string(y) << "\n" ;
      outfile.close();
+     */
+
+     std::ofstream outfile;
+     outfile.open("mines_line.txt", std::ios_base::app);
+     outfile  << content_add <<"\n" ;
+     outfile.close();
+
 
      count ++;
      mine_count ++ ;
@@ -286,10 +294,17 @@ bool mine_distributor::Circle_pattern(double duration)
     }
 
     // for statistical learning data
+    /*
     std::ofstream outfile;
     outfile.open("mines_ga1.csv", std::ios_base::app);
     outfile << std::to_string(count) + "," + std::to_string(x) + "," + std::to_string(y) << "\n" ;
     outfile.close();
+    */
+    std::ofstream outfile;
+    outfile.open("mines_circle.txt", std::ios_base::app);
+    outfile  << content_add <<"\n" ;
+    outfile.close();
+
   }
   else if (duration > delay_qroute && lock == 1)
   {
@@ -313,9 +328,15 @@ bool mine_distributor::Circle_pattern(double duration)
     }
 
     // for statistical learning data
+    /*
     std::ofstream outfile;
     outfile.open("mines_qroute.csv", std::ios_base::app);
     outfile << std::to_string(count) + "," + std::to_string(x) + "," + std::to_string(y) << "\n" ;
+    outfile.close();
+    */
+    std::ofstream outfile;
+    outfile.open("mines_circle1.txt", std::ios_base::app);
+    outfile  << content_add <<"\n" ;
     outfile.close();
   }
   else if (duration > delay_ga2 && lock == 2)
@@ -338,9 +359,15 @@ bool mine_distributor::Circle_pattern(double duration)
       lock = 3;
       circle_increment = 0;
     }
+    /*
     std::ofstream outfile;
     outfile.open("mines_ga2.csv", std::ios_base::app);
     outfile << std::to_string(count) + "," + std::to_string(x) + "," + std::to_string(y) << "\n" ;
+    outfile.close();
+    */
+    std::ofstream outfile;
+    outfile.open("mines_circle1.txt", std::ios_base::app);
+    outfile  << content_add <<"\n" ;
     outfile.close();
   }
   else

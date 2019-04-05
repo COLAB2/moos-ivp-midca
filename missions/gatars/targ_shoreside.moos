@@ -23,7 +23,7 @@ Processconfig = ANTLER
   Run = pvisual	         @ NewConsole = false
   Run = uFldShoreBroker  @ NewConsole = false
   Run = uFldHazardSensor @ NewConsole = false
-  Run = pmine_distributor @ NewConsole = false
+  // Run = pmine_distributor @ NewConsole = false
 
 }
 
@@ -133,7 +133,7 @@ ProcessConfig = uFldHazardSensor
   show_hazards=true
   swath_length  = 10
 
-  hazard_file   = hazards5.txt
+  hazard_file   = hazards_hackathon.txt
 
 }
 
@@ -146,7 +146,7 @@ ProcessConfig = pMarineViewer
   TIFF_FILE            = forrest19.tif
   set_pan_x            = -90
   set_pan_y            = -280
-  zoom                 = 0.8
+  zoom                 = 0.6
   vehicle_shape_scale  = 2
   hash_delta           = 50
   hash_shade           = 0.4

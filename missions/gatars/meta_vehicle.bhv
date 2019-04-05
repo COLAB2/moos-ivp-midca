@@ -10,7 +10,7 @@ Behavior = BHV_Waypoint
 {
   name      = cycle
   pwt       = 100
-  condition = (mission==true) 	
+  condition = (mission==true)
   speed = 1.0
   perpetual = true
   updates   = NEW_POINTS
@@ -19,5 +19,5 @@ Behavior = BHV_Waypoint
   visual_hints = nextpt_color=red, nextpt_lcolor=khaki
   visual_hints = edge_color=khaki, vertex_color=white
   visual_hints = edge_size=1, vertex_size=4
-  
+
 }

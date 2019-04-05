@@ -128,7 +128,7 @@ ProcessConfig = uSimMarine
   AppTick   = 10
   CommsTick = 10
 
-  START_POS = 0,10, 180,0
+  START_POS = 49,67, 180,0
   PREFIX    = NAV
 
   BUOYANCY_RATE    = 0.025

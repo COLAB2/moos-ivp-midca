@@ -1,9 +1,9 @@
 ServerHost = localhost
-ServerPort = 9002
+ServerPort = 9003
 Simulator  = true
 
 // Community name IS the vehicle name
-Community  = Titanic
+Community  = Chesapeake
 
 
 MOOSTimeWarp = 8
@@ -68,7 +68,7 @@ ProcessConfig = pShare
   AppTick    = 2
   CommsTick  = 2
 
-  input = route =  localhost:9302
+  input = route =  localhost:9303
 
   // =======================================================
   // Usage Info below
@@ -87,7 +87,7 @@ ProcessConfig = pShare
   // Setting up an input
   // input = route = multicast_9
   
-  // input = route = localhost:9302 & multicast_9
+  // input = route = localhost:9303 & multicast_9
 
  
   // Setting up lots of inputs at once
@@ -117,7 +117,7 @@ ProcessConfig = uSimMarine
   AppTick   = 10
   CommsTick = 10
 
-  START_POS = -35,-16, 90,0
+  START_POS = -75,-49, 90,0
   PREFIX    = NAV
 
 }
@@ -131,7 +131,7 @@ ProcessConfig = pHelmIvP
   AppTick    = 4
   CommsTick  = 4
   
-  Behaviors    = targ_Titanic.bhv  
+  Behaviors    = targ_Chesapeake.bhv  
   Verbose      = false
   Domain       = course:0:359:360
   Domain     = speed:0:4:21

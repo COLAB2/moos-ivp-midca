@@ -4,7 +4,7 @@
 #-------------------------------------------------------
 TIME_WARP= 7
 JUST_MAKE="no"
-HAZARD_FILE="hazards5.txt"
+HAZARD_FILE="hazards_hackathon.txt"
 PEN_MISSED_HAZ=150
 PEN_FALARM=25
 MAX_TIME=7200
@@ -50,28 +50,40 @@ fi
 #  Part 2: Create the .moos and .bhv files.
 #-------------------------------------------------------
 VNAME1="remus"      # The first   vehicle community
-START_POS1="0,10"
+START_POS1="49,67"
 ANGLE="180,0"
 
 VNAME2="Titanic"      # The SHIP
-START_POS2="-90,-80"
+START_POS2="-35,-16"
 ship_angle="90,0"
 
-VNAME3="Cruise"      # The SHIP
-START_POS3="-70,-70"
+VNAME3="Chesapeake"      # The SHIP
+START_POS3="-75,-49"
 
-VNAME4="ship"      # The SHIP
+VNAME4="CarlVinson"      # The SHIP
 START_POS4="-50,-60"
 
-VNAME5="Titanic1"      # The SHIP
-START_POS5="-80,-77"
+VNAME5="CorpusChristi"      # The SHIP
+START_POS5="-97,-60"
 ship_angle="90,0"
 
-VNAME6="Cruise1"      # The SHIP
-START_POS6="-60,-85"
+VNAME6="Pittsburgh"      # The SHIP
+START_POS6="-80,-76"
 
-VNAME7="ship1"      # The SHIP
-START_POS7="-93,-70"
+VNAME7="Intrepid"      # The SHIP
+START_POS7="-95,-95"
+
+VNAME8="Liberty"      # The SHIP
+START_POS8="-104,-113"
+
+VNAME9="Ohio"      # The SHIP
+START_POS9="-61,-102"
+
+VNAME10="alaska"      # The SHIP
+START_POS10="-100,-126"
+
+VNAME11="Patriot"      # The SHIP
+START_POS11="-95,-140"
 
 # What is nsplug? Type "nsplug --help" or "nsplug --manual"
 
@@ -130,6 +142,36 @@ nsplug meta_ship.moos targ_$VNAME7.moos -f WARP=$TIME_WARP  \
     VNAME1=$VNAME7        ANGLE=$ship_angle                                   \
     VTYPE=SHIP
 
+
+nsplug meta_ship.moos targ_$VNAME8.moos -f WARP=$TIME_WARP  \
+    VNAME=$VNAME8         START_POS=$START_POS8               \
+    VPORT="9008"          SHARE_LISTEN="9308"                  \
+    SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
+    VNAME1=$VNAME8        ANGLE=$ship_angle                                   \
+    VTYPE=SHIP
+
+nsplug meta_ship.moos targ_$VNAME9.moos -f WARP=$TIME_WARP  \
+    VNAME=$VNAME9         START_POS=$START_POS9               \
+    VPORT="9009"          SHARE_LISTEN="9309"                  \
+    SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
+    VNAME1=$VNAME9        ANGLE=$ship_angle                                   \
+    VTYPE=SHIP
+
+nsplug meta_ship.moos targ_$VNAME10.moos -f WARP=$TIME_WARP  \
+    VNAME=$VNAME10         START_POS=$START_POS10               \
+    VPORT="9010"          SHARE_LISTEN="9310"                  \
+    SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
+    VNAME1=$VNAME10        ANGLE=$ship_angle                                   \
+    VTYPE=SHIP
+
+nsplug meta_ship.moos targ_$VNAME11.moos -f WARP=$TIME_WARP  \
+    VNAME=$VNAME11         START_POS=$START_POS11               \
+    VPORT="9011"          SHARE_LISTEN="9311"                  \
+    SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
+    VNAME1=$VNAME11        ANGLE=$ship_angle                                   \
+    VTYPE=SHIP
+
+
 nsplug meta_vehicle.bhv targ_$VNAME1.bhv -f VNAME=$VNAME1   \
     START_POS=$START_POS1 VNAME1=$VNAME1
 
@@ -150,6 +192,18 @@ nsplug meta_ship4.bhv targ_$VNAME6.bhv -f VNAME=$VNAME6   \
 
 nsplug meta_ship5.bhv targ_$VNAME7.bhv -f VNAME=$VNAME7   \
     START_POS=$START_POS7 VNAME1=$VNAME7
+
+nsplug meta_ship6.bhv targ_$VNAME8.bhv -f VNAME=$VNAME8   \
+    START_POS=$START_POS8 VNAME1=$VNAME8
+
+nsplug meta_ship7.bhv targ_$VNAME9.bhv -f VNAME=$VNAME9   \
+    START_POS=$START_POS9 VNAME1=$VNAME9
+
+nsplug meta_ship8.bhv targ_$VNAME10.bhv -f VNAME=$VNAME10   \
+    START_POS=$START_POS10 VNAME1=$VNAME10
+
+nsplug meta_ship9.bhv targ_$VNAME11.bhv -f VNAME=$VNAME11   \
+    START_POS=$START_POS11 VNAME1=$VNAME11
 
 if [ ${JUST_MAKE} = "yes" ] ; then
     exit 0
@@ -176,8 +230,20 @@ pAntler targ_$VNAME5.moos >& /dev/null &
 printf "Launching $VNAME6 MOOS Community (WARP=%s) \n" $TIME_WARP
 pAntler targ_$VNAME6.moos >& /dev/null &
 
-printf "Launching $VNAME7 MOOS Community (WARP=%s) \n" $TIME_WARP
-pAntler targ_$VNAME7.moos >& /dev/null &
+#printf "Launching $VNAME7 MOOS Community (WARP=%s) \n" $TIME_WARP
+#pAntler targ_$VNAME7.moos >& /dev/null &
+
+#printf "Launching $VNAME8 MOOS Community (WARP=%s) \n" $TIME_WARP
+#pAntler targ_$VNAME8.moos >& /dev/null &
+
+#printf "Launching $VNAME9 MOOS Community (WARP=%s) \n" $TIME_WARP
+#pAntler targ_$VNAME9.moos >& /dev/null &
+
+#printf "Launching $VNAME10 MOOS Community (WARP=%s) \n" $TIME_WARP
+#pAntler targ_$VNAME10.moos >& /dev/null &
+
+#printf "Launching $VNAME11 MOOS Community (WARP=%s) \n" $TIME_WARP
+#pAntler targ_$VNAME11.moos >& /dev/null &
 
 printf "Launching $SNAME MOOS Community (WARP=%s) \n"  $TIME_WARP
 pAntler targ_shoreside.moos >& /dev/null &
@@ -187,6 +253,6 @@ printf "Done \n"
 uMAC targ_shoreside.moos
 
 printf "Killing all processes ... \n"
-kill %1 %2 %3 %4 %5 %6 %7 %8
+kill %1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12
 mykill
 printf "Done killing processes.   \n"
