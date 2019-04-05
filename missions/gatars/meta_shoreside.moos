@@ -47,8 +47,8 @@ ProcessConfig = pShare
 
 ProcessConfig = pmine_distributer
 {
-  AppTick    = 2
-  CommsTick  = 2
+  AppTick    = 10
+  CommsTick  = 10
 }
 
 //--------------------------------------------------
@@ -96,7 +96,7 @@ ProcessConfig = uFldHazardSensor
   show_pd = false
   show_pfa = false
   sensor_config = width=5, exp=8, pclass=0.88, max=1
-  sensor_config = width=9, exp=8, pclass=1
+  sensor_config = width=10, exp=8, pclass=1
   sensor_config = width=50, exp=8, pclass=1
 
   show_detections = 5

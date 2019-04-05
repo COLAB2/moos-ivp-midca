@@ -24,6 +24,7 @@ class mine_distributor : public CMOOSApp
 
  protected:
    int lock;
+   int flag;
    int count;
    int total_mines;
    int mine_count;
@@ -54,7 +55,14 @@ class mine_distributor : public CMOOSApp
    double qroute_area_final_x;
 
 
-   bool Line_pattern(double duration);
+   bool Line_pattern(double duration, double ga1_init_x,
+                                      double ga1_final_x,
+                                      double ga2_init_x,
+                                      double ga2_final_x,
+                                      double qroute_area_init_x,
+                                      double qroute_area_final_x,
+                                      double slope,
+                                      double intercept);
    bool Circle_pattern(double duration);
    void RegisterVariables();
 

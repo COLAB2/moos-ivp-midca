@@ -50,7 +50,7 @@ fi
 #  Part 2: Create the .moos and .bhv files.
 #-------------------------------------------------------
 VNAME1="remus"      # The first   vehicle community
-START_POS1="0,10"
+START_POS1="55,80"
 ANGLE="180,0"
 
 VNAME2="Titanic"      # The SHIP

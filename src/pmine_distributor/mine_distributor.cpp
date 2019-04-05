@@ -15,8 +15,14 @@
 #include <string>
 #include <time.h>
 #include <cmath>
+#include <chrono>
+#include <thread>
 
+
+using namespace std::this_thread; // sleep_for, sleep_until
+using namespace std::chrono; // nanoseconds, system_clock, seconds
 using namespace std;
+
 zmq::context_t context(1);
 zmq::socket_t publisher(context, ZMQ_PUB);
 zmq::socket_t publisher_mine(context, ZMQ_PUB);
@@ -27,23 +33,17 @@ zmq::socket_t publisher_mine(context, ZMQ_PUB);
 mine_distributor::mine_distributor()
 {
   lock = 0;
-  start = 0;
-  delay = 0.00;
-  delay_ga1 = 0.01;
-  delay_qroute = 0.02;
-  delay_ga2 = 0.03;
-  pattern = "line";
+  flag = 1;
+  start = 0; // this is to record the initial time
+  delay = 0.00;  // the delay at which the mines should start
+  delay_ga1 = 0.01; // delay for the mines to be layed in ga1
+  delay_qroute = 0.02; // delay for the mines to layed in qroute
+  delay_ga2 = 0.03;   // delay for the mines to layed in qroute
+  pattern = "line";   // The pattern is line
 
   // For Line
-  slope = 0.1;
-  intercept = -75;
-  ga1_init_x = 2.0;
-  ga2_init_x = 132;
-  ga1_final_x = 37.0;
-  ga2_final_x = 165;
-  qroute_area_init_x = 52;
-  qroute_area_final_x = 120;
-  overflow_flag = 2;
+  overflow_flag = 2; // to distribute mines across the specified interval
+  line_increment = 10; // Distribute mines in an interval of 10
 
 
 
@@ -58,15 +58,15 @@ mine_distributor::mine_distributor()
   ga2_center_y = -75;
 
   // no:of mines and label
-  count = 2;
-  mine_count = 0;
-  total_mines = 100;
+  count = 2;  // label of the mines to begin with
+  mine_count = 0;   // to count number of mines
+  total_mines = 10; // The total number of mines to distribute
 
-  line_increment = 20;
+
 
 
   if (pattern == "line")
-    increment = 0;
+    increment = 0; // to maintain the increments
   if (pattern == "circle")
     increment = 360/(total_mines/17) ;
 }
@@ -123,11 +123,19 @@ bool mine_distributor::OnConnectToServer()
 //            Hazards in the format of a line
 
 
-bool mine_distributor::Line_pattern(double duration)
+bool mine_distributor::Line_pattern(double duration, double ga1_init_x,
+                                                     double ga1_final_x,
+                                                     double ga2_init_x,
+                                                     double ga2_final_x,
+                                                     double qroute_area_init_x,
+                                                     double qroute_area_final_x,
+                                                     double slope,
+                                                     double intercept)
 {
 
   if (duration > delay_ga1 && lock == 0)
   {
+    // if the mines are placed in the first interval go to second inter
     if (mine_count >= total_mines/3 )
     {
       lock = 1;
@@ -204,6 +212,7 @@ bool mine_distributor::Line_pattern(double duration)
     }
   }
 
+
   else if (duration > delay_ga2 && lock == 2)
   {
 
@@ -212,6 +221,8 @@ bool mine_distributor::Line_pattern(double duration)
       lock = 3;
       increment = line_increment;
       overflow_flag = 2;
+      mine_count = 0;
+      return (false);
     }
     else if ((ga2_init_x + increment) >= ga2_final_x )
     {
@@ -367,7 +378,63 @@ bool mine_distributor::Iterate()
   cout << duration << "\n" ;
 
   if (pattern == "line")
-      Line_pattern(duration);
+  {
+      // For the first line
+      /*
+      // For Line
+      slope = 0.7;
+      intercept = -104.7;
+      ga1_init_x = -50.0;
+      ga2_init_x = 132;
+      ga1_final_x = 37.0;
+      ga2_final_x = 165;
+      qroute_area_init_x = 52;
+      qroute_area_final_x = 120;
+      overflow_flag = 2;
+      */
+      if (flag == 1)
+      {
+      if (!Line_pattern(duration, 6, 20.0, 32, 36, 23, 30, 0.7,-100.7))
+        {
+          flag = 2;
+          lock = 0;
+        }
+      }
+      else if (flag == 2)
+      {
+        if (!Line_pattern(duration, 65.0, 75.0, 91, 98, 80, 90, 0.7,-140.5))
+          {
+
+            flag = 3;
+            lock = 0;
+          }
+      }
+
+      else if (flag == 3)
+      {
+        total_mines = 10;
+        if (!Line_pattern(duration, 136.0, 150.0, 157, 162, 153, 156, 0.7,-190))
+          {
+            flag = 4;
+            lock = 0;
+          }
+      }
+
+      else if (flag == 4)
+      {
+        total_mines = 10;
+        if (!Line_pattern(duration, 0.0, 20.0, 70, 100, 40, 60, 0.7,10))
+          {
+            flag = 5;
+            lock = 0;
+          }
+      }
+      else
+      {
+        return (true);
+      }
+
+  }
   else if (pattern == "circle")
       Circle_pattern(duration);
 
