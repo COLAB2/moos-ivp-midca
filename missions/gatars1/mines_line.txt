@@ -1,0 +1,16 @@
+hazard = x=20.000000,y=-24.000000,label= 200, type=hazard
+hazard = x=70.000000,y=-59.000000,label= 201, type=hazard
+hazard = x=45.000000,y=-41.500000,label= 202, type=hazard
+hazard = x=95.000000,y=-76.500000,label= 203, type=hazard
+hazard = x=32.500000,y=-32.750000,label= 204, type=hazard
+hazard = x=82.500000,y=-67.750000,label= 205, type=hazard
+hazard = x=26.250000,y=-28.375000,label= 206, type=hazard
+hazard = x=76.250000,y=-63.375000,label= 207, type=hazard
+hazard = x=20.000000,y=-24.000000,label= 200, type=hazard
+hazard = x=70.000000,y=-59.000000,label= 201, type=hazard
+hazard = x=45.000000,y=-41.500000,label= 202, type=hazard
+hazard = x=95.000000,y=-76.500000,label= 203, type=hazard
+hazard = x=32.500000,y=-32.750000,label= 204, type=hazard
+hazard = x=82.500000,y=-67.750000,label= 205, type=hazard
+hazard = x=26.250000,y=-28.375000,label= 206, type=hazard
+hazard = x=76.250000,y=-63.375000,label= 207, type=hazard

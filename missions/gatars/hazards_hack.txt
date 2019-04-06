@@ -1,0 +1,24 @@
+hazard = x=109.000000,y=-73.000000,label=210, type=hazard
+hazard = x=70.489267,y=-44.232528,label=211, type=hazard
+hazard = x=53.828838,y=-89.322151,label=212, type=hazard
+hazard = x=101.792402,y=-92.506574,label=213, type=hazard
+hazard = x=91.239159,y=-45.610167,label=214, type=hazard
+hazard = x=49.263318,y=-69.033929,label=215, type=hazard
+hazard = x=83.632904,y=-102.640111,label=216, type=hazard
+hazard = x=106.108055,y=-60.148800,label=217, type=hazard
+hazard = x=58.986468,y=-50.651431,label=218, type=hazard
+hazard = x=63.247266,y=-98.531380,label=219, type=hazard
+hazard = x=75.000000,y=-147.500000,label=300, type=hazard
+hazard = x=110.000000,y=-123.000000,label=301, type=hazard
+hazard = x=145.000000,y=-98.500000,label=302, type=hazard
+hazard = x=180.000000,y=-74.000000,label=303, type=hazard
+hazard = x=215.000000,y=-49.500000,label=304, type=hazard
+hazard = x=92.500000,y=-135.250000,label=305, type=hazard
+hazard = x=127.500000,y=-110.750000,label=306, type=hazard
+hazard = x=162.500000,y=-86.250000,label=307, type=hazard
+hazard = x=7,y=-136,label=1,type=hazard
+hazard = x=-21,y=-110,label=76,type=hazard
+hazard = x=4,y=-103,label=34,type=hazard
+hazard = x=-15,y=-110,label=90,type=hazard
+hazard = x=18,y=-114,label=52,type=hazard
+

@@ -20,7 +20,7 @@ Processconfig = ANTLER
   Run = pvisual	         @ NewConsole = false
   Run = uFldShoreBroker  @ NewConsole = false
   Run = uFldHazardSensor @ NewConsole = false
- //Run = pmine_distributor @ NewConsole = false
+// Run = pmine_distributor @ NewConsole = false
 
 }
 

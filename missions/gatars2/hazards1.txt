@@ -1,0 +1,45 @@
+hazard = x=11,y=-71,label= 1, type=hazard
+hazard = x=66,y=-65,label= 2,type=hazard
+hazard = x=137,y=-72,label= 3,type=hazard
+hazard = x=157,y=-89,label= 4,type=hazard
+hazard = x=166,y=-73,label= 5,type=hazard
+hazard = x=-2,y=-32,label= 6,type=hazard
+hazard = x=129,y=-92,label= 7,type=hazard
+hazard = x=101,y=-66,label= 8,type=hazard
+hazard = x=32,y=-76,label= 9,type=hazard
+hazard = x=-6,y=-14,label= 10, type=hazard
+hazard = x=4,y=-41,label= 11,type=hazard
+hazard = x=9,y=-13,label= 12,type=hazard
+hazard = x=10,y=-28,label= 14,type=hazard
+hazard = x=24,y=-55,label= 16,type=hazard
+hazard = x=47,y=-83,label= 18,type=hazard
+hazard = x=121,y=-60,label= 19,type=hazard
+hazard = x=166,y=-55,label= 20,type=hazard
+hazard = x=167,y=-96,label= 21, type=hazard
+hazard = x=144,y=-39,label= 23,type=hazard
+hazard = x=164,y=-41,label= 24,type=hazard
+hazard = x=153,y=-24,label= 25,type=hazard
+hazard = x=172,y=-15,label= 26,type=hazard
+hazard = x=177,y=-27,label= 27,type=hazard
+hazard = x=45,y=-41,label= 28,type=hazard
+hazard = x=57,y=-31,label= 29,type=hazard
+hazard = x=14,y=-41,label= 30, type=hazard
+hazard = x=94,y=-31,label= 31, type=hazard
+hazard = x=52,y=-83,label= 32,type=hazard
+hazard = x=128,y=-55,label= 33,type=hazard
+hazard = x=107,y=-88,label= 34,type=hazard
+hazard = x=91,y=-91,label= 35,type=hazard
+hazard = x=10,y=-84,label= 36,type=hazard
+hazard = x=24,y=-71,label= 37,type=hazard
+hazard = x=24,y=-90,label= 38,type=hazard
+hazard = x=46,y=-59,label= 39,type=hazard
+hazard = x=80,y=-78,label= 40, type=hazard
+hazard = x=118,y=-76,label= 41, type=hazard
+hazard = x=153,y=-71,label= 43,type=hazard
+hazard = x=142,y=-89,label= 44,type=hazard
+hazard = x=142,y=-55,label= 45,type=hazard
+hazard = x=1,y=-97,label= 46,type=hazard
+hazard = x=59,y=-54,label= 47,type=hazard
+hazard = x=74,y=-36,label= 48,type=hazard
+hazard = x=110,y=-41,label= 49,type=hazard
+hazard = x=113,y=-60,label= 50, type=hazard

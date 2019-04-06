@@ -1,0 +1,7 @@
+hazard = x=93.161641,y=-95.741095,label= 300, type=hazard
+hazard = x=65.175864,y=-111.353563,label= 301, type=hazard
+hazard = x=88.086220,y=-133.760446,label= 302, type=hazard
+hazard = x=103.073070,y=-105.434712,label= 303, type=hazard
+hazard = x=71.659442,y=-99.099345,label= 304, type=hazard
+hazard = x=74.496125,y=-131.019654,label= 305, type=hazard
+hazard = x=104.300269,y=-119.244006,label= 306, type=hazard

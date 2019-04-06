@@ -35,11 +35,11 @@ mine_distributor::mine_distributor()
   pattern = "line";
 
   // For Line
-  slope = 0.7;
-  intercept = -200;
-  ga1_init_x = 85;
-  ga2_init_x = 132;
-  ga1_final_x = 200;
+  slope = -0.7;
+  intercept = -10;
+  ga1_init_x = 130;
+  ga2_init_x = 172;
+  ga1_final_x = 250;
   ga2_final_x = 165;
   qroute_area_init_x = 52;
   qroute_area_final_x = 120;
@@ -48,21 +48,21 @@ mine_distributor::mine_distributor()
 
 
   // Circle
-  radius = 30;
+  radius = 20;
   circle_increment = 20;
-  ga1_center_x = 17;
-  ga1_center_y = -77;
+  ga1_center_x = 85;
+  ga1_center_y = -114;
   qroute_center_x = 79;
   qroute_center_y = -73;
   ga2_center_x = 147;
   ga2_center_y = -75;
 
   // no:of mines and label
-  count = 200;
+  count = 300;
   mine_count = 0;
-  total_mines = 50;
+  total_mines = 25;
 
-  line_increment = 20;
+  line_increment = 50;
 
 
   if (pattern == "line")

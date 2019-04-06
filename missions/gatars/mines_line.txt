@@ -1,16 +1,32 @@
-hazard = x=85.000000,y=-140.500000,label=200, type=hazard
-hazard = x=105.000000,y=-126.500000,label=201, type=hazard
-hazard = x=125.000000,y=-112.500000,label=202, type=hazard
-hazard = x=145.000000,y=-98.500000,label=203, type=hazard
-hazard = x=165.000000,y=-84.500000,label=204, type=hazard
-hazard = x=185.000000,y=-70.500000,label=205, type=hazard
-hazard = x=95.000000,y=-133.500000,label=206, type=hazard
-hazard = x=115.000000,y=-119.500000,label=207, type=hazard
-hazard = x=135.000000,y=-105.500000,label=208, type=hazard
-hazard = x=155.000000,y=-91.500000,label=209, type=hazard
-hazard = x=175.000000,y=-77.500000,label=210, type=hazard
-hazard = x=195.000000,y=-63.500000,label=211, type=hazard
-hazard = x=90.000000,y=-137.000000,label=212, type=hazard
-hazard = x=110.000000,y=-123.000000,label=213, type=hazard
-hazard = x=130.000000,y=-109.000000,label=214, type=hazard
-hazard = x=150.000000,y=-95.000000,label=215, type=hazard
+hazard = x=75.000000,y=-147.500000,label= 300, type=hazard
+hazard = x=110.000000,y=-123.000000,label= 301, type=hazard
+hazard = x=145.000000,y=-98.500000,label= 302, type=hazard
+hazard = x=180.000000,y=-74.000000,label= 303, type=hazard
+hazard = x=215.000000,y=-49.500000,label= 304, type=hazard
+hazard = x=92.500000,y=-135.250000,label= 305, type=hazard
+hazard = x=127.500000,y=-110.750000,label= 306, type=hazard
+hazard = x=162.500000,y=-86.250000,label= 307, type=hazard
+hazard = x=75.000000,y=-147.500000,label= 300, type=hazard
+hazard = x=110.000000,y=-123.000000,label= 301, type=hazard
+hazard = x=145.000000,y=-98.500000,label= 302, type=hazard
+hazard = x=180.000000,y=-74.000000,label= 303, type=hazard
+hazard = x=215.000000,y=-49.500000,label= 304, type=hazard
+hazard = x=92.500000,y=-135.250000,label= 305, type=hazard
+hazard = x=127.500000,y=-110.750000,label= 306, type=hazard
+hazard = x=162.500000,y=-86.250000,label= 307, type=hazard
+hazard = x=75.000000,y=-147.500000,label= 300, type=hazard
+hazard = x=110.000000,y=-123.000000,label= 301, type=hazard
+hazard = x=145.000000,y=-98.500000,label= 302, type=hazard
+hazard = x=180.000000,y=-74.000000,label= 303, type=hazard
+hazard = x=215.000000,y=-49.500000,label= 304, type=hazard
+hazard = x=92.500000,y=-135.250000,label= 305, type=hazard
+hazard = x=127.500000,y=-110.750000,label= 306, type=hazard
+hazard = x=162.500000,y=-86.250000,label= 307, type=hazard
+hazard = x=75.000000,y=-147.500000,label= 300, type=hazard
+hazard = x=110.000000,y=-123.000000,label= 301, type=hazard
+hazard = x=145.000000,y=-98.500000,label= 302, type=hazard
+hazard = x=180.000000,y=-74.000000,label= 303, type=hazard
+hazard = x=215.000000,y=-49.500000,label= 304, type=hazard
+hazard = x=92.500000,y=-135.250000,label= 305, type=hazard
+hazard = x=127.500000,y=-110.750000,label= 306, type=hazard
+hazard = x=162.500000,y=-86.250000,label= 307, type=hazard
