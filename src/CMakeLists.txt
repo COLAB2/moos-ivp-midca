@@ -19,6 +19,7 @@ ADD_SUBDIRECTORY(pmidca)
 ADD_SUBDIRECTORY(pvisual)
 ADD_SUBDIRECTORY(prelocate)
 ADD_SUBDIRECTORY(pmine_distributor)
+ADD_SUBDIRECTORY(pmine_layer)
 
 ##############################################################################
 #                           END of CMakeLists.txt
