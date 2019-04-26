@@ -74,10 +74,13 @@ relocate::relocate()
   // distance
   threshold_distance = 3;
   // group delays
-  delay_group1 = 0.2;
-  delay_group2 = 3.5;
+  delay_group1 = 0.25;
+  delay_group2 = 0.50;
+  delay_group3 = 0.75;
+  init = 0;
+  deploy = "false";
   //filename = "/home/sampath/moos-ivp/moos-ivp-midca/missions/new/hazards.txt";
-  filename = "../../missions/gatars/hazards5.txt" ;
+  filename = "../../missions/gatars/hazard_s1.txt" ;
 }
 
 //---------------------------------------------------------
@@ -132,6 +135,10 @@ bool relocate::OnNewMail(MOOSMSG_LIST &NewMail)
     else if(key == "NAV_DEPTH"){
 
       m_current_d = msg.GetDouble();
+    }
+    else if(key == "RETURN"){
+
+      deploy = msg.GetString();
     }
     else
     {
@@ -253,6 +260,12 @@ bool relocate::Iterate()
 
 // Calculate the time and start the ships after certain delay
 double duration;
+
+  if (init == 0)
+  {
+    start = clock();
+    init = 1;
+  }
 duration = double( clock() - start ) / (double) CLOCKS_PER_SEC;
 
 
@@ -263,6 +276,10 @@ if (duration > delay_group1 && start != -1.0)
 if (duration > delay_group2 && start != -1.0)
     // this is to make the ships of the group1 to move
     Notify("GROUP2","true");
+
+if (duration > delay_group3 && start != -1.0)
+    // this is to make the ships of the group1 to move
+    Notify("GROUP3","true");
 
 
   //Notify("DB_CLIENTS","uXMS_166,pHostInfo,pShare,prelocate,uProcessWatch,pHelmIvP,pMarinePID,uSimMarine,");
@@ -425,7 +442,6 @@ subscriber.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
 subscriber_add_mine.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
 subscriber_add_mine.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
 publisher_mine.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
-start = clock();
 RegisterVariables();
   return(true);
 }

@@ -60,12 +60,16 @@ class relocate : public CMOOSApp
    int index_label;
    int lock;
    clock_t start;
+   int init;
+
    int stop_lock;
    float delay_group1;
    float delay_group2;
+   float delay_group3;
    int threshold_distance;
    std::string mission;
    std::string filename;
+   std::string deploy;
  protected:
    bool hazard_feed(std::string);
    void RegisterVariables();
