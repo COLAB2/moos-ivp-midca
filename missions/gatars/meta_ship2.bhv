@@ -13,7 +13,7 @@ Behavior = BHV_Waypoint
   pwt       = 100
   condition = (GROUP1==true)
   speed = 2.0
-  point = 200,-67
+  point = 200,-89
   endflag = GROUP12=true
   visual_hints = nextpt_color=red, nextpt_lcolor=khaki
   visual_hints = edge_color=khaki, vertex_color=white

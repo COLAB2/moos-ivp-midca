@@ -39,7 +39,7 @@ mine_distributor::mine_distributor()
   delay_ga1 = 0.01; // delay for the mines to be layed in ga1
   delay_qroute = 0.02; // delay for the mines to layed in qroute
   delay_ga2 = 0.03;   // delay for the mines to layed in qroute
-  pattern = "line";   // The pattern is line
+  pattern = "circle";   // The pattern is line
 
   // For Line
   overflow_flag = 2; // to distribute mines across the specified interval
@@ -48,7 +48,7 @@ mine_distributor::mine_distributor()
 
 
   // Circle
-  radius = 12;
+  radius = 15;
   circle_increment = 5;
   ga1_center_x = 17;
   ga1_center_y = -77;
@@ -58,9 +58,9 @@ mine_distributor::mine_distributor()
   ga2_center_y = -75;
 
   // no:of mines and label
-  count = 2;  // label of the mines to begin with
+  count = 100;  // label of the mines to begin with
   mine_count = 0;   // to count number of mines
-  total_mines = 10; // The total number of mines to distribute
+  total_mines = 30; // The total number of mines to distribute
 
 
 
@@ -157,7 +157,7 @@ bool mine_distributor::Line_pattern(double duration, double ga1_init_x,
      s_sendmore(publisher,"M");
      s_send(publisher,content);
 
-     string content_add = "hazard = x=" +std::to_string(ga1_init_x + increment )+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
+     string content_add = "hazard = x=" +std::to_string(ga1_init_x + increment )+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+",type=hazard";
      s_sendmore(publisher_mine,"M");
      s_send(publisher_mine,content_add);
 
@@ -165,6 +165,11 @@ bool mine_distributor::Line_pattern(double duration, double ga1_init_x,
      std::ofstream outfile;
      outfile.open("mines_ga1.csv", std::ios_base::app);
      outfile << std::to_string(count) + "," + std::to_string(ga1_init_x + increment) + "," + std::to_string(y) << "\n" ;
+     outfile.close();
+
+     //std::ofstream outfile;
+     outfile.open("mines_line.txt", std::ios_base::app);
+     outfile  << content_add <<"\n" ;
      outfile.close();
 
      count ++;
@@ -196,7 +201,7 @@ bool mine_distributor::Line_pattern(double duration, double ga1_init_x,
      s_sendmore(publisher,"M");
      s_send(publisher,content);
 
-     string content_add = "hazard = x=" +std::to_string(qroute_area_init_x + increment)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
+     string content_add = "hazard = x=" +std::to_string(qroute_area_init_x + increment)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+",type=hazard";
      s_sendmore(publisher_mine,"M");
      s_send(publisher_mine,content_add);
 
@@ -204,6 +209,11 @@ bool mine_distributor::Line_pattern(double duration, double ga1_init_x,
      std::ofstream outfile;
      outfile.open("mines_qroute.csv", std::ios_base::app);
      outfile << std::to_string(count) + "," + std::to_string(qroute_area_init_x + increment) + "," + std::to_string(y) << "\n" ;
+     outfile.close();
+
+     //std::ofstream outfile;
+     outfile.open("mines_line.txt", std::ios_base::app);
+     outfile  << content_add <<"\n" ;
      outfile.close();
 
      count ++;
@@ -239,7 +249,7 @@ bool mine_distributor::Line_pattern(double duration, double ga1_init_x,
      s_sendmore(publisher,"M");
      s_send(publisher,content);
 
-     string content_add = "hazard = x=" +std::to_string(ga2_init_x + increment)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
+     string content_add = "hazard = x=" +std::to_string(ga2_init_x + increment)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+",type=hazard";
      s_sendmore(publisher_mine,"M");
      s_send(publisher_mine,content_add);
 
@@ -247,6 +257,11 @@ bool mine_distributor::Line_pattern(double duration, double ga1_init_x,
      std::ofstream outfile;
      outfile.open("mines_ga2.csv", std::ios_base::app);
      outfile << std::to_string(count) + "," + std::to_string(ga2_init_x + increment) + "," + std::to_string(y) << "\n" ;
+     outfile.close();
+
+     //std::ofstream outfile;
+     outfile.open("mines_line.txt", std::ios_base::app);
+     outfile  << content_add <<"\n" ;
      outfile.close();
 
      count ++;
@@ -310,7 +325,7 @@ bool mine_distributor::Circle_pattern(double duration)
     s_sendmore(publisher,"M");
     s_send(publisher,content);
 
-    string content_add = "hazard = x=" +std::to_string(x)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+", type=hazard";
+    string content_add = "hazard = x=" +std::to_string(x)+ ",y=" +std::to_string(y)+ ",label= "+std::to_string(count)+",type=hazard";
     s_sendmore(publisher_mine,"M");
     s_send(publisher_mine,content_add);
 
@@ -327,6 +342,11 @@ bool mine_distributor::Circle_pattern(double duration)
     std::ofstream outfile;
     outfile.open("mines_qroute.csv", std::ios_base::app);
     outfile << std::to_string(count) + "," + std::to_string(x) + "," + std::to_string(y) << "\n" ;
+    outfile.close();
+
+    //std::ofstream outfile;
+    outfile.open("mines_line.txt", std::ios_base::app);
+    outfile  << content_add <<"\n" ;
     outfile.close();
   }
   else if (duration > delay_ga2 && lock == 2)
@@ -402,7 +422,7 @@ bool mine_distributor::Iterate()
       }
       else if (flag == 2)
       {
-        if (!Line_pattern(duration, 65.0, 75.0, 91, 98, 80, 90, 0.7,-140.5))
+        if (!Line_pattern(duration, 65.0, 80.0, 100, 120, 85, 100, 0.7,-140.5))
           {
 
             flag = 3;

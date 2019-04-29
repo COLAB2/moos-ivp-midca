@@ -2,8 +2,8 @@
 
 initialize   DEPLOY = false
 initialize   RETURN = false
-initialize   GROUP2 = false
-initialize   GROUP22 = false
+initialize   GROUP3 = false
+initialize   GROUP32 = false
 
 //----------------------------------------------
 
@@ -11,10 +11,10 @@ Behavior = BHV_Waypoint
 {
   name      = cycle1
   pwt       = 100
-  condition = (GROUP2==true)
-  speed = 2.0
-  point = 220,-87
-  endflag = GROUP22=true
+  condition = (GROUP3==true)
+  speed = 1.0
+  point = 220,-77
+  endflag = GROUP32=true
   visual_hints = nextpt_color=red, nextpt_lcolor=khaki
   visual_hints = edge_color=khaki, vertex_color=white
   visual_hints = edge_size=1, vertex_size=4
