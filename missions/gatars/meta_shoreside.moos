@@ -136,7 +136,7 @@ ProcessConfig = pMarineViewer
   vehicle_shape_scale  = 2
   hash_delta           = 50
   hash_shade           = 0.4
-  hash_viewable        = true
+  hash_viewable        = false
 
 
    // Appcast configuration
@@ -148,6 +148,7 @@ ProcessConfig = pMarineViewer
   procs_font_size      = medium
   appcast_font_size    = small
   vehicles_name_mode = names
+  
 
   scope = NEW_POINTS
   scope = mission

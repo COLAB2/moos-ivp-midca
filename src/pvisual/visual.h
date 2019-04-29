@@ -16,11 +16,12 @@ class visual : public CMOOSApp
    visual();
    ~visual();
 
- protected: // Standard MOOSApp functions to overload  
+ protected: // Standard MOOSApp functions to overload
    bool OnNewMail(MOOSMSG_LIST &NewMail);
    bool Iterate();
    bool OnConnectToServer();
    bool OnStartUp();
+   double distanceCalculate(double x1, double y1, double x2, double y2);
 
  protected:
    void RegisterVariables();
@@ -32,4 +33,4 @@ class visual : public CMOOSApp
  private: // State variables
 };
 
-#endif 
+#endif
