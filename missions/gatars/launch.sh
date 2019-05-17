@@ -86,13 +86,13 @@ VNAME11="Patriot"      # The SHIP
 START_POS11="-95,-140"
 
 VNAME12="fisher1"      # The SHIP
-START_POS12="147,64"
+START_POS12="149,65"
 
 VNAME13="fisher2"      # The SHIP
-START_POS13="118,48"
+START_POS13="109,65"
 
 VNAME14="fisher3"      # The SHIP
-START_POS14="157,45"
+START_POS14="189,65"
 
 VNAME15="fisher4"      # The SHIP
 START_POS15="245,42"
@@ -183,21 +183,21 @@ nsplug meta_ship.moos targ_$VNAME11.moos -f WARP=$TIME_WARP  \
     VNAME1=$VNAME11        ANGLE=$ship_angle                                   \
     VTYPE=SHIP
 
-nsplug meta_fisher.moos targ_$VNAME12.moos -f WARP=$TIME_WARP  \
+nsplug meta_fisher1.moos targ_$VNAME12.moos -f WARP=$TIME_WARP  \
     VNAME=$VNAME12         START_POS=$START_POS12               \
     VPORT="9012"          SHARE_LISTEN="9312"                  \
     SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
     VNAME1=$VNAME12        ANGLE=$ANGLE                                   \
     VTYPE=GLIDER
 
-nsplug meta_fisher.moos targ_$VNAME13.moos -f WARP=$TIME_WARP  \
+nsplug meta_fisher2.moos targ_$VNAME13.moos -f WARP=$TIME_WARP  \
     VNAME=$VNAME13         START_POS=$START_POS13               \
     VPORT="9013"          SHARE_LISTEN="9313"                  \
     SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
     VNAME1=$VNAME13        ANGLE=$ANGLE                                    \
     VTYPE=KAYAK
 
-nsplug meta_fisher.moos targ_$VNAME14.moos -f WARP=$TIME_WARP  \
+nsplug meta_fisher3.moos targ_$VNAME14.moos -f WARP=$TIME_WARP  \
     VNAME=$VNAME14         START_POS=$START_POS14               \
     VPORT="9014"          SHARE_LISTEN="9314"                  \
     SHOREIP="localhost"   SHORE_LISTEN="9200"                  \

@@ -1,1 +1,1 @@
-hazard = x=-150.000000,y=-79.500000,label= 2,type=hazard
+hazard = x=-150.000000,y=-79.500000,label= 2000,type=hazard

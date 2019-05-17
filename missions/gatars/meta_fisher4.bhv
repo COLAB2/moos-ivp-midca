@@ -2,7 +2,7 @@
 
 initialize   DEPLOY = true
 initialize   RETURN = false
-initialize   emission = true
+initialize   mission = true
 
 //----------------------------------------------
 
@@ -10,11 +10,12 @@ Behavior = BHV_Waypoint
 {
   name      = fisher
   pwt       = 100
-  condition = (emission==true)
-  speed = 1
-  updates   = UPDATE_POINTS
+  condition = (mission==true)
+  speed = 1.0
   perpetual = true
-  endflag = emission=false
+  updates   = NEW_POINTS
+  endflag = shipmission=true
+  endflag = mission=false
   visual_hints = nextpt_color=red, nextpt_lcolor=khaki
   visual_hints = edge_color=khaki, vertex_color=white
   visual_hints = edge_size=1, vertex_size=4

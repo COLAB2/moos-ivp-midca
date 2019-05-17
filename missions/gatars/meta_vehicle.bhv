@@ -12,6 +12,7 @@ Behavior = BHV_Waypoint
   pwt       = 100
   condition = (mission==true)
   speed = 1.0
+  //points = pts={47,-54:68,-54} 
   perpetual = true
   updates   = NEW_POINTS
   endflag = shipmission=true

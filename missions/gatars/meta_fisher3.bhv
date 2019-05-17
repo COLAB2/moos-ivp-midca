@@ -2,6 +2,8 @@
 
 initialize   DEPLOY = true
 initialize   RETURN = false
+initialize   mission = true
+
 
 //----------------------------------------------
 
@@ -11,8 +13,8 @@ Behavior = BHV_Waypoint
   pwt       = 100
   condition = (DEPLOY==true)
   speed = 0.5
-  points = pts={157,45:137,-199}
-  perpetual = true
+  points = pts= {189,45:189,25:189,5:189,-15:189,-35:189,-55:189,-75:189,-95:189,-115:189,-135:189,-155:189,-175:189,-195:189,-215:189,-235:189,-255:189,-275:189,-295:189,-315}
+  perpetual = false
   visual_hints = nextpt_color=red, nextpt_lcolor=khaki
   visual_hints = edge_color=khaki, vertex_color=white
   visual_hints = edge_size=1, vertex_size=4

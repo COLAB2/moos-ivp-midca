@@ -115,10 +115,14 @@ if (initialize == 0)
   */
 
   // Grids
+  // This variable is the top left points on the grid
   double top_left[2] = {-141,76};
   double top_right[2] = {270,76};
-  double bottom_left[2] = {-141,-225};
-  double bottom_right[2] = {270,-225};
+  double bottom_left[2] = {-141,-335};
+  double bottom_right[2] = {270,-335};
+
+
+
   double horizontal_dist = distanceCalculate(top_left[0],
                                           top_left[1],
                                           bottom_left[0],
@@ -129,8 +133,13 @@ if (initialize == 0)
                                           top_right[0],
                                           top_right[1]);
 
+  // grid size
   int grid = 20 ;
+
+  // count is for labeling the grid
   int count = 0;
+
+  // lines drawn vertical
   for (int i=0; i < (horizontal_dist/grid); i++)
   {
     s= "pts={" + to_string(top_left[0]) + "," + to_string(top_left[1] - i*grid)
@@ -141,6 +150,7 @@ if (initialize == 0)
     count = count + 1;
   }
 
+  // Lines drawn horizontal
   for (int i=0; i < (vertical_dist/grid); i++)
   {
     s= "pts={" + to_string(top_left[0] + i*grid) + "," + to_string(top_left[1] )
@@ -150,7 +160,6 @@ if (initialize == 0)
     Notify("VIEW_SEGLIST",s);
   }
 
-initialize = 1;
 }
 
 

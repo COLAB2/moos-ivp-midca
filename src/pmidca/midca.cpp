@@ -160,6 +160,10 @@ Notify("NEW_POINTS", contents);
 
 bool midca::OnStartUp()
 {
+
+  string publish_ip = "tcp://";
+  string publish_mine_ip = "tcp://";
+  string subscribe_ip = "tcp://";
   list<string> sParams;
   m_MissionReader.EnableVerbatimQuoting(false);
   if(m_MissionReader.GetConfiguration(GetAppName(), sParams)) {
@@ -167,13 +171,27 @@ bool midca::OnStartUp()
     for(p=sParams.begin(); p!=sParams.end(); p++) {
       string original_line = *p;
       string param = stripBlankEnds(toupper(biteString(*p, '=')));
-      string value = stripBlankEnds(*p);
+      string value = *p;
+        if(param == "PUBLISH_IP") {
+            publish_ip = publish_ip + value;
+        }
+        else if(param == "PUBLISH_MINE_IP") {
+            publish_mine_ip = publish_mine_ip + value;
+        }
+        else if(param == "SUBSCRIBE_IP") {
+            subscribe_ip = subscribe_ip + value;
+        }
+        else
+        {
+            value = value;
+        }
+    
 
     }
   }
-  publisher.bind("tcp://127.0.0.1:5563");
-  publisher_mine.bind("tcp://127.0.0.1:5564");
-  subscriber.connect("tcp://127.0.0.1:5560");
+  publisher.bind(publish_ip);
+  publisher_mine.bind(publish_mine_ip);
+  subscriber.connect(subscribe_ip);
   subscriber.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
   int timeout = 1;
   int count = 2;

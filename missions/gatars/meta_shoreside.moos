@@ -148,6 +148,8 @@ ProcessConfig = pMarineViewer
   procs_font_size      = medium
   appcast_font_size    = small
   vehicles_name_mode = names
+  seglist_viewable_labels = false
+  marker_viewable_labels = false
   
 
   scope = NEW_POINTS

@@ -28,8 +28,11 @@ Processconfig = ANTLER
 
 ProcessConfig = pmidca
 {
-  AppTick   = 1                                                
+  AppTick   = 1
   CommsTick = 1
+  publish_ip = 127.0.0.1:5563
+  publish_mine_ip = 127.0.0.1:5564
+  subscribe_ip = 127.0.0.1:5560
 }
 
 
