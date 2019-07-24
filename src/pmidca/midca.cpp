@@ -100,7 +100,7 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
 
 
 
-    if (m_current_x != -1 && m_current_y != -1 && m_current_s != -1 && m_current_h != -1)
+    if (m_current_x != -1 && m_current_y != -1)
 	{
 	s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h));
 	}
@@ -185,13 +185,13 @@ bool midca::OnStartUp()
         {
             value = value;
         }
-    
+
 
     }
   }
-  publisher.bind(publish_ip);
-  publisher_mine.bind(publish_mine_ip);
-  subscriber.connect(subscribe_ip);
+  publisher.connect(publish_ip);
+  publisher_mine.connect(publish_mine_ip);
+  subscriber.bind(subscribe_ip);
   subscriber.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
   int timeout = 1;
   int count = 2;

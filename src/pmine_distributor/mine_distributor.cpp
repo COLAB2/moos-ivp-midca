@@ -426,7 +426,7 @@ bool mine_distributor::OnStartUp()
   }
   start = clock();
   publisher.connect("tcp://127.0.0.1:5505");
-  publisher_mine.bind("tcp://127.0.0.1:5522");
+  publisher_mine.connect("tcp://127.0.0.1:5522");
   int timeout = 1;
   int count = 2;
   publisher.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
