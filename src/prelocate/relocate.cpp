@@ -21,7 +21,6 @@
 #include <unistd.h>
 #include "zhelpers.hpp"
 #include <cstdio>
-#include <ctime>
 
 
 
@@ -73,9 +72,6 @@ relocate::relocate()
 
   // distance
   threshold_distance = 3;
-  // group delays
-  delay_group1 = 1.3;
-  delay_group2 = 1.7;
   //filename = "/home/sampath/moos-ivp/moos-ivp-midca/missions/new/hazards.txt";
   filename = "../../missions/gatars/hazards6.txt" ;
 }
@@ -199,7 +195,6 @@ bool relocate::hazard_feed(string line)
            line = line.replace(0,2,"");
            double temp = std::stod( line);
            x[index_x] = temp;
-           cout << temp << "  ";
            index_x = index_x + 1;
            //x[index_x] = std::stoi( line) ;
            //index_x = index_x + 1;
@@ -220,7 +215,6 @@ bool relocate::hazard_feed(string line)
 
            double temp = std::stod( line_y);
            y[index_y] = temp;
-           cout << temp << "  ";
            index_y = index_y + 1;
             break;
    }
@@ -232,7 +226,6 @@ bool relocate::hazard_feed(string line)
            line_label = line_label.replace(i,line_label.length(),"");
            line_label = line_label.replace(0,7,"");
            int temp = std::stoi(line_label);
-           cout << temp << " \n";
            label[index_label] = temp;
            index_label = index_label + 1;
             break;
@@ -253,9 +246,9 @@ bool relocate::Iterate()
 
 // Calculate the time and start the ships after certain delay
 double duration;
-duration = double( clock() - start ) / (double) CLOCKS_PER_SEC;
+duration = (double( clock() - start ) / CLOCKS_PER_SEC) * 100 ;
 
-
+cout << duration << "\n" ;
 if (duration > delay_group1 && start != -1.0)
   // this is to make the ships of the group1 to move
   Notify("GROUP1","true");
@@ -387,12 +380,11 @@ bool relocate::OnStartUp()
       string original_line = *p;
       string param = stripBlankEnds(toupper(biteString(*p, '=')));
       string value = stripBlankEnds(*p);
-
-      if(param == "FOO") {
-        //handled
+      if(param == "DELAYGROUP1") {
+        delay_group1 = std::stod(value);
       }
-      else if(param == "BAR") {
-        //handled
+      else if(param == "DELAYGROUP2") {
+        delay_group2 = std::stod(value);
       }
     }
   }

@@ -20,6 +20,7 @@ ADD_SUBDIRECTORY(pvisual)
 ADD_SUBDIRECTORY(prelocate)
 ADD_SUBDIRECTORY(pmine_distributor)
 ADD_SUBDIRECTORY(pmine_layer)
+ADD_SUBDIRECTORY(ppause_vessels)
 
 ##############################################################################
 #                           END of CMakeLists.txt

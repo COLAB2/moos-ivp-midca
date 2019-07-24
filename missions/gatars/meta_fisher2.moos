@@ -23,8 +23,18 @@ Processconfig = ANTLER
   Run = pHostInfo          @ NewConsole = false
   Run = uFldNodeBroker     @ NewConsole = false
   Run = pmidca     	       @ NewConsole = false
+  Run = ppause_vessels     @ NewConsole = false
+}
 
+//------------------------------------------------
+// ppause_vessels config block
 
+ProcessConfig = ppause_vessels
+{
+   AppTick   = 4
+   CommsTick = 4
+   PauseTime = 2
+   GroupName = fisher2
 }
 
 ProcessConfig = pmidca

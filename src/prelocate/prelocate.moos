@@ -3,6 +3,8 @@
 
 ProcessConfig = prelocate
 {
-   AppTick   = 1
-   CommsTick = 1
+  AppTick   = 3
+  CommsTick = 3
+  DelayGroup1 = 13
+  DelayGroup2 = 26
 }

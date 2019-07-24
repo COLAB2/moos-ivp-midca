@@ -18,7 +18,7 @@ Processconfig = ANTLER
   Run = pMarinePID         @ NewConsole = false
   Run = pHelmIvP           @ NewConsole = false
   Run = uProcessWatch      @ NewConsole = false
-  Run = prelocate      @ NewConsole = false
+  Run = prelocate          @ NewConsole = false
   Run = pShare             @ NewConsole = false
   Run = pHostInfo          @ NewConsole = false
   Run = uFldNodeBroker     @ NewConsole = false
@@ -28,8 +28,10 @@ Processconfig = ANTLER
 
 ProcessConfig = prelocate
 {
-  AppTick   = 3
-  CommsTick = 3
+  AppTick   = 4
+  CommsTick = 4
+  DelayGroup1 = 60
+  DelayGroup2 = 120
 }
 
 

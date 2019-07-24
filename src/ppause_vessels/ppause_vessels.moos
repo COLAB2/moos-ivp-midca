@@ -1,0 +1,10 @@
+//------------------------------------------------
+// ppause_vessels config block
+
+ProcessConfig = ppause_vessels
+{
+   AppTick   = 4
+   CommsTick = 4
+   PauseTime = 5
+   GroupName = fisher1
+}

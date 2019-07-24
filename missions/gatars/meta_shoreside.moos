@@ -70,6 +70,7 @@ ProcessConfig = uFldShoreBroker
   bridge   =src=MOOS_MANUAL_OVERIDE
   bridge   =src=NODE_MESSAGE
   bridge   =src=mission
+  bridge   =src=fisher1
 
   bridge   = src=APPCAST_REQ
   bridge   = src=UHZ_MISSION_PARAMS
@@ -150,12 +151,13 @@ ProcessConfig = pMarineViewer
   vehicles_name_mode = names
   seglist_viewable_labels = false
   marker_viewable_labels = false
-  
+
 
   scope = NEW_POINTS
   scope = mission
   scope = ODOMETRY_DIST
   scope = UHZ_HAZARD_REPORT
+  scope = fisher1
 
   BUTTON_ONE = DEPLOY
   BUTTON_ONE = MOOS_MANUAL_OVERIDE=false # RETURN=false
