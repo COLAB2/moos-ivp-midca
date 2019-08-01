@@ -14,7 +14,7 @@ path=/home/sampath/Documents/git/moos-interface/world.py #path of the python pro
 counter=1
 
 # For safety
-kill -9 $(cat /tmp/python.pid) &>> /dev/null
+kill -9 $(cat /tmp/python.pid) >& /dev/null
 # to safe kill all the process
 trap "printf 'Killing all processes ... \n'; 
      mykill; 
@@ -38,8 +38,8 @@ do
 
   printf "Launching The Moos application \n"
   ./clean.sh
-  ./launch.sh &>> moos_output.txt & sleep 5
-  uPokeDB meta_shoreside.moos DEPLOY=true MOOS_MANUAL_OVERIDE=false &>> poke.txt & sleep 5
+  ./launch.sh >& moos_output.txt & sleep 5
+  uPokeDB meta_shoreside.moos DEPLOY=true MOOS_MANUAL_OVERIDE=false >& poke.txt & sleep 5
   python $path & echo $! > /tmp/python.pid & sleep $TIME_LIMIT
   printf "Killing the process ... \n"
   mykill
