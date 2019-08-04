@@ -195,10 +195,11 @@ bool midca::OnStartUp()
   subscriber.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
   int timeout = 1;
   int count = 2;
+  int count_mine = 0;
   subscriber.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
   subscriber.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
   publisher.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
-  publisher_mine.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
+  publisher_mine.setsockopt (ZMQ_SNDHWM, &count_mine, sizeof (int));
 
   RegisterVariables();
   return(true);
