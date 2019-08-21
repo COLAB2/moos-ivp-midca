@@ -6,8 +6,8 @@
 #         only then it goes for another run
 
 
-iterations=2 # no:of iterations
-TIME_LIMIT=30 # the maximum amount of time moos should run
+iterations=1 # no:of iterations
+TIME_LIMIT=300 # the maximum amount of time moos should run
 path=/home/sampath/Documents/git/moos-interface/world.py #path of the python program
 
 
@@ -16,9 +16,9 @@ counter=1
 # For safety
 kill -9 $(cat /tmp/python.pid) >& /dev/null
 # to safe kill all the process
-trap "printf 'Killing all processes ... \n'; 
-     mykill; 
-     killall -9 python; 
+trap "printf 'Killing all processes ... \n';
+     mykill;
+     killall -9 python;
      killall -9 pmidca pvisual prelocate pmine_distributor pmine_layer ppause_vessels;
      printf 'Done killing process ... \n';
      exit $?" SIGINT

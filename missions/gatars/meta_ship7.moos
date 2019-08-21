@@ -31,12 +31,10 @@ ProcessConfig = pmidca
 {
   AppTick   = 1
   CommsTick = 1
-  publish_ip = 127.0.0.1:6510
-  publish_mine_ip = 127.0.0.1:6530
-  subscribe_ip = 127.0.0.1:6520
+  publish_ip = 127.0.0.1:6517
+  publish_mine_ip = 127.0.0.1:6537
+  subscribe_ip = 127.0.0.1:6527
 }
-
-
 
 #include plug_prelocate.moos
 #include plug_uFldNodeBroker.moos

@@ -31,9 +31,9 @@ ProcessConfig = pmidca
 {
   AppTick   = 1
   CommsTick = 1
-  publish_ip = 127.0.0.1:6510
-  publish_mine_ip = 127.0.0.1:6530
-  subscribe_ip = 127.0.0.1:6520
+  publish_ip = 127.0.0.1:6519
+  publish_mine_ip = 127.0.0.1:6539
+  subscribe_ip = 127.0.0.1:6529
 }
 
 

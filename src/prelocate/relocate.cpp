@@ -244,21 +244,7 @@ bool relocate::Iterate()
 {
 
 
-// Calculate the time and start the ships after certain delay
-double duration;
-duration = (double( clock() - start ) / CLOCKS_PER_SEC) * 100 ;
-
-cout << duration << "\n" ;
-if (duration > delay_group1 && start != -1.0)
-  // this is to make the ships of the group1 to move
-  Notify("GROUP1","true");
-
-if (duration > delay_group2 && start != -1.0)
-    // this is to make the ships of the group1 to move
-    Notify("GROUP2","true");
-
-
-  //Notify("DB_CLIENTS","uXMS_166,pHostInfo,pShare,prelocate,uProcessWatch,pHelmIvP,pMarinePID,uSimMarine,");
+//Notify("DB_CLIENTS","uXMS_166,pHostInfo,pShare,prelocate,uProcessWatch,pHelmIvP,pMarinePID,uSimMarine,");
 //  Notify("NODE_REPORT_LOCAL","NAME=ship,X=206.77,Y=-66.34,SPD=0,HDG=84.8,DEP=0,LAT=43.82473273,
 //                            LON=-70.32781596,TYPE=SHIP,MODE=DRIVE,ALLSTOP=NothingToDo,
 //                            INDEX=4771,YAW=0.0908344,TIME=12311502446.75,LENGTH=8");
@@ -306,8 +292,8 @@ for (int i =0 ; i < index_x ; i++)
         s_send(publisher_mine,to_string(label[i]));
 
 
-        newreport = newreport + "X=-700,";
-        newreport = newreport + "Y=-500,";
+        newreport = newreport + "X=-1700,";
+        newreport = newreport + "Y=-1500,";
         newreport = newreport + "SPD=0," ;
         newreport = newreport + "HDG=0,";
         newreport = newreport + "DEP=0," ;
@@ -323,10 +309,10 @@ for (int i =0 ; i < index_x ; i++)
         lock = 1;
 
         // write to a file
-        std::ofstream outfile;
-        outfile.open("scores.csv", std::ios_base::app);
-        outfile << name + ",-1" << "\n" ;
-        outfile.close();
+        //std::ofstream outfile;
+        //outfile.open("scores.csv", std::ios_base::app);
+        //outfile << name + ",-1" << "\n" ;
+        //outfile.close();
 
         break;
 
@@ -336,6 +322,20 @@ for (int i =0 ; i < index_x ; i++)
 }
 if (lock == 1)
 {
+  newreport = newreport + "X=-1700,";
+  newreport = newreport + "Y=-1500,";
+  newreport = newreport + "SPD=0," ;
+  newreport = newreport + "HDG=0,";
+  newreport = newreport + "DEP=0," ;
+  newreport = newreport + "LAT=0,";
+  newreport = newreport + "LONG=0," ;
+  newreport = newreport + "TYPE=SHIP,";
+  newreport = newreport + "MODE=PARK,";
+  newreport = newreport + "ALLSTOP=NothingToDo,";
+  newreport = newreport + "INDEX=" + to_string(index) + ",";
+  newreport = newreport + "TIME=" + to_string(m_current_time) + ",";
+  newreport = newreport + "LENGTH=1";
+  Notify("NODE_REPORT_LOCAL", newreport);
   return(true);
 }
 else
@@ -401,10 +401,11 @@ bool relocate::OnStartUp()
   }
 infile.close();
 // write to a file
-std::ofstream outfile;
-outfile.open("scores.csv", std::ios_base::app);
-outfile << name + ",1" << "\n" ;
-outfile.close();
+//std::ofstream outfile;
+//outfile.open("scores.csv", std::ios_base::app);
+//outfile << name + ",1" << "\n" ;
+//outfile.close();
+
 publisher_mine.connect("tcp://127.0.0.1:5565");
 subscriber.connect("tcp://127.0.0.1:5570");
 subscriber_add_mine.connect("tcp://127.0.0.1:5522");

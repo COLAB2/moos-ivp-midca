@@ -119,35 +119,35 @@ nsplug meta_ship.moos targ_$VNAME2.moos -f WARP=$TIME_WARP  \
     VNAME1=$VNAME2        ANGLE=$ship_angle    		                       \
     VTYPE=SHIP
 
-nsplug meta_ship.moos targ_$VNAME3.moos -f WARP=$TIME_WARP  \
+nsplug meta_ship1.moos targ_$VNAME3.moos -f WARP=$TIME_WARP  \
     VNAME=$VNAME3         START_POS=$START_POS3               \
     VPORT="9003"          SHARE_LISTEN="9303"                  \
     SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
     VNAME1=$VNAME3        ANGLE=$ship_angle                                   \
     VTYPE=SHIP
 
-nsplug meta_ship.moos targ_$VNAME4.moos -f WARP=$TIME_WARP  \
+nsplug meta_ship2.moos targ_$VNAME4.moos -f WARP=$TIME_WARP  \
     VNAME=$VNAME4         START_POS=$START_POS4               \
     VPORT="9004"          SHARE_LISTEN="9304"                  \
     SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
     VNAME1=$VNAME4        ANGLE=$ship_angle                                   \
     VTYPE=SHIP
 
-nsplug meta_ship.moos targ_$VNAME5.moos -f WARP=$TIME_WARP  \
+nsplug meta_ship3.moos targ_$VNAME5.moos -f WARP=$TIME_WARP  \
     VNAME=$VNAME5         START_POS=$START_POS5               \
     VPORT="9005"          SHARE_LISTEN="9305"                  \
     SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
     VNAME1=$VNAME5        ANGLE=$ship_angle                                   \
     VTYPE=SHIP
 
-nsplug meta_ship.moos targ_$VNAME6.moos -f WARP=$TIME_WARP  \
+nsplug meta_ship4.moos targ_$VNAME6.moos -f WARP=$TIME_WARP  \
     VNAME=$VNAME6         START_POS=$START_POS6               \
     VPORT="9006"          SHARE_LISTEN="9306"                  \
     SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
     VNAME1=$VNAME6        ANGLE=$ship_angle                                   \
     VTYPE=SHIP
 
-nsplug meta_ship.moos targ_$VNAME7.moos -f WARP=$TIME_WARP  \
+nsplug meta_ship5.moos targ_$VNAME7.moos -f WARP=$TIME_WARP  \
     VNAME=$VNAME7         START_POS=$START_POS7               \
     VPORT="9007"          SHARE_LISTEN="9307"                  \
     SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
@@ -155,28 +155,28 @@ nsplug meta_ship.moos targ_$VNAME7.moos -f WARP=$TIME_WARP  \
     VTYPE=SHIP
 
 
-nsplug meta_ship.moos targ_$VNAME8.moos -f WARP=$TIME_WARP  \
+nsplug meta_ship6.moos targ_$VNAME8.moos -f WARP=$TIME_WARP  \
     VNAME=$VNAME8         START_POS=$START_POS8               \
     VPORT="9008"          SHARE_LISTEN="9308"                  \
     SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
     VNAME1=$VNAME8        ANGLE=$ship_angle                                   \
     VTYPE=SHIP
 
-nsplug meta_ship.moos targ_$VNAME9.moos -f WARP=$TIME_WARP  \
+nsplug meta_ship7.moos targ_$VNAME9.moos -f WARP=$TIME_WARP  \
     VNAME=$VNAME9         START_POS=$START_POS9               \
     VPORT="9009"          SHARE_LISTEN="9309"                  \
     SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
     VNAME1=$VNAME9        ANGLE=$ship_angle                                   \
     VTYPE=SHIP
 
-nsplug meta_ship.moos targ_$VNAME10.moos -f WARP=$TIME_WARP  \
+nsplug meta_ship8.moos targ_$VNAME10.moos -f WARP=$TIME_WARP  \
     VNAME=$VNAME10         START_POS=$START_POS10               \
     VPORT="9010"          SHARE_LISTEN="9310"                  \
     SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
     VNAME1=$VNAME10        ANGLE=$ship_angle                                   \
     VTYPE=SHIP
 
-nsplug meta_ship.moos targ_$VNAME11.moos -f WARP=$TIME_WARP  \
+nsplug meta_ship9.moos targ_$VNAME11.moos -f WARP=$TIME_WARP  \
     VNAME=$VNAME11         START_POS=$START_POS11               \
     VPORT="9011"          SHARE_LISTEN="9311"                  \
     SHOREIP="localhost"   SHORE_LISTEN="9200"                  \
@@ -217,31 +217,31 @@ nsplug meta_vehicle.bhv targ_$VNAME1.bhv -f VNAME=$VNAME1   \
 nsplug meta_ship.bhv targ_$VNAME2.bhv -f VNAME=$VNAME2   \
     START_POS=$START_POS2 VNAME1=$VNAME2
 
-nsplug meta_ship1.bhv targ_$VNAME3.bhv -f VNAME=$VNAME3   \
+nsplug meta_ship.bhv targ_$VNAME3.bhv -f VNAME=$VNAME3   \
     START_POS=$START_POS3 VNAME1=$VNAME3
 
-nsplug meta_ship2.bhv targ_$VNAME4.bhv -f VNAME=$VNAME4   \
+nsplug meta_ship.bhv targ_$VNAME4.bhv -f VNAME=$VNAME4   \
     START_POS=$START_POS4 VNAME1=$VNAME4
 
-nsplug meta_ship3.bhv targ_$VNAME5.bhv -f VNAME=$VNAME5   \
+nsplug meta_ship.bhv targ_$VNAME5.bhv -f VNAME=$VNAME5   \
     START_POS=$START_POS5 VNAME1=$VNAME5
 
-nsplug meta_ship4.bhv targ_$VNAME6.bhv -f VNAME=$VNAME6   \
+nsplug meta_ship.bhv targ_$VNAME6.bhv -f VNAME=$VNAME6   \
     START_POS=$START_POS6 VNAME1=$VNAME6
 
-nsplug meta_ship5.bhv targ_$VNAME7.bhv -f VNAME=$VNAME7   \
+nsplug meta_ship.bhv targ_$VNAME7.bhv -f VNAME=$VNAME7   \
     START_POS=$START_POS7 VNAME1=$VNAME7
 
-nsplug meta_ship6.bhv targ_$VNAME8.bhv -f VNAME=$VNAME8   \
+nsplug meta_ship.bhv targ_$VNAME8.bhv -f VNAME=$VNAME8   \
     START_POS=$START_POS8 VNAME1=$VNAME8
 
-nsplug meta_ship7.bhv targ_$VNAME9.bhv -f VNAME=$VNAME9   \
+nsplug meta_ship.bhv targ_$VNAME9.bhv -f VNAME=$VNAME9   \
     START_POS=$START_POS9 VNAME1=$VNAME9
 
-nsplug meta_ship8.bhv targ_$VNAME10.bhv -f VNAME=$VNAME10   \
+nsplug meta_ship.bhv targ_$VNAME10.bhv -f VNAME=$VNAME10   \
     START_POS=$START_POS10 VNAME1=$VNAME10
 
-nsplug meta_ship9.bhv targ_$VNAME11.bhv -f VNAME=$VNAME11   \
+nsplug meta_ship.bhv targ_$VNAME11.bhv -f VNAME=$VNAME11   \
     START_POS=$START_POS11 VNAME1=$VNAME11
 
 nsplug meta_fisher1.bhv targ_$VNAME12.bhv -f VNAME=$VNAME12   \
