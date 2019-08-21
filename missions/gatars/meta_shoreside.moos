@@ -127,8 +127,8 @@ ProcessConfig = uFldHazardSensor
 //--------------------------------------------------------
 ProcessConfig = pMarineViewer
 {
-  AppTick    = 4
-  CommsTick  = 4
+  AppTick    = 1
+  CommsTick  = 1
 
   TIFF_FILE            = forrest19.tif
   set_pan_x            = -90
