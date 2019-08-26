@@ -102,7 +102,7 @@ ProcessConfig = uFldHazardSensor
 
   show_detections = 5
 
-  max_turn_rate = 20.0
+  max_turn_rate = 19.0
 
   default_hazard_width = 3
   default_hazard_shape = triangle
