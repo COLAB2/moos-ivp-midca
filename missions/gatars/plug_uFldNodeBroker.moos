@@ -3,8 +3,8 @@
 
 ProcessConfig = uFldNodeBroker
 {
-  AppTick   = 4
-  CommsTick = 4
+  AppTick   = 1
+  CommsTick = 1
 
   //TRY_SHORE_HOST = pshare_route=multicast_9
   TRY_SHORE_HOST = pshare_route=$(SHOREIP):$(SHORE_LISTEN)

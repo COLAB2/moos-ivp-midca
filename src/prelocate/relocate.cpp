@@ -290,22 +290,6 @@ for (int i =0 ; i < index_x ; i++)
       {
         s_sendmore(publisher_mine,"M");
         s_send(publisher_mine,to_string(label[i]));
-
-
-        newreport = newreport + "X=-1700,";
-        newreport = newreport + "Y=-1500,";
-        newreport = newreport + "SPD=0," ;
-        newreport = newreport + "HDG=0,";
-        newreport = newreport + "DEP=0," ;
-        newreport = newreport + "LAT=0,";
-        newreport = newreport + "LONG=0," ;
-        newreport = newreport + "TYPE=SHIP,";
-        newreport = newreport + "MODE=PARK,";
-        newreport = newreport + "ALLSTOP=NothingToDo,";
-        newreport = newreport + "INDEX=" + to_string(index) + ",";
-        newreport = newreport + "TIME=" + to_string(m_current_time) + ",";
-        newreport = newreport + "LENGTH=1";
-        Notify("NODE_REPORT_LOCAL", newreport);
         lock = 1;
 
         // write to a file
@@ -322,6 +306,9 @@ for (int i =0 ; i < index_x ; i++)
 }
 if (lock == 1)
 {
+  newreport = "";
+  index = index + 1;
+  newreport = newreport + "Name=" + name + ",";
   newreport = newreport + "X=-1700,";
   newreport = newreport + "Y=-1500,";
   newreport = newreport + "SPD=0," ;
