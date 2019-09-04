@@ -290,6 +290,9 @@ for (int i =0 ; i < index_x ; i++)
       {
         s_sendmore(publisher_mine,"M");
         s_send(publisher_mine,to_string(label[i]));
+        x[i] = 1000;
+        y[i] = 1000;
+        
         lock = 1;
 
         // write to a file

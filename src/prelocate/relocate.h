@@ -52,9 +52,9 @@ class relocate : public CMOOSApp
    // name
    std::string name;
    // array
-   double x[100];
-   double y[100];
-   int label[100];
+   double x[1000];
+   double y[1000];
+   int label[1000];
    int index_x;
    int index_y;
    int index_label;
