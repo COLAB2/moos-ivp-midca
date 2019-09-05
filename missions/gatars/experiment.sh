@@ -8,7 +8,7 @@
 
 iterations=1 # no:of iterations
 TIME_LIMIT=300 # the maximum amount of time moos should run
-path=/home/sampath/Documents/git/moos-interface/world.py #path of the python program
+path=/Users/sravyakondrakunta/Documents/git/moos-interface/world.py #path of the python program
 
 
 counter=1

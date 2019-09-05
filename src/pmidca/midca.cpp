@@ -16,6 +16,7 @@ using namespace std;
 
 zmq::context_t context(1);
 zmq::socket_t publisher(context, ZMQ_PUB);
+zmq::socket_t publisher_dup_ip(context, ZMQ_PUB);
 zmq::socket_t publisher_mine(context, ZMQ_PUB);
 zmq::socket_t subscriber (context, ZMQ_SUB);
 //---------------------------------------------------------
@@ -31,6 +32,7 @@ midca::midca()
    points = "ptx=0 # pty =0";
    mission = "false";
    report = "" ;
+   duplicate_connection = 0;
 
 }
 
@@ -103,7 +105,11 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
     if (m_current_x != -1 && m_current_y != -1)
 	{
 	s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h));
-	}
+  if (duplicate_connection)
+  {
+    s_send (publisher_dup_ip, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h));
+}
+  }
    return(true);
 }
 
@@ -164,6 +170,7 @@ bool midca::OnStartUp()
   string publish_ip = "tcp://";
   string publish_mine_ip = "tcp://";
   string subscribe_ip = "tcp://";
+  string publish_dup_ip = "tcp://";
   list<string> sParams;
   m_MissionReader.EnableVerbatimQuoting(false);
   if(m_MissionReader.GetConfiguration(GetAppName(), sParams)) {
@@ -174,6 +181,10 @@ bool midca::OnStartUp()
       string value = *p;
         if(param == "PUBLISH_IP") {
             publish_ip = publish_ip + value;
+        }
+        else if(param == "PUBLISH_DUP_IP") {
+            publish_dup_ip = publish_dup_ip + value;
+            duplicate_connection = 1;
         }
         else if(param == "PUBLISH_MINE_IP") {
             publish_mine_ip = publish_mine_ip + value;
@@ -188,6 +199,12 @@ bool midca::OnStartUp()
 
 
     }
+  }
+  if (duplicate_connection)
+  {
+      int dup_count = 2;
+    publisher_dup_ip.connect(publish_dup_ip);
+    publisher_dup_ip.setsockopt (ZMQ_SNDHWM, &dup_count, sizeof (int));
   }
   publisher.connect(publish_ip);
   publisher_mine.connect(publish_mine_ip);

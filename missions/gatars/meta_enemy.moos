@@ -33,6 +33,7 @@ ProcessConfig = pmidca
   publish_ip = 127.0.0.1:5590
   publish_mine_ip = 127.0.0.1:5591
   subscribe_ip = 127.0.0.1:5592
+  publish_dup_ip = 127.0.0.1:5990
 }
 
 
