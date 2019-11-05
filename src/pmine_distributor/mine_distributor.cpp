@@ -29,20 +29,20 @@ mine_distributor::mine_distributor()
   lock = 0;
   start = 0;
   delay = 0.00;
-  delay_ga1 = 0.01;
-  delay_qroute = 0.02;
-  delay_ga2 = 0.03;
+  delay_ga1 = 0.0;
+  delay_qroute = 0.01;
+  delay_ga2 = 0.02;
   pattern = "line";
 
   // For Line
-  slope = -0.7;
-  intercept = -10;
-  ga1_init_x = 130;
-  ga2_init_x = 172;
-  ga1_final_x = 250;
-  ga2_final_x = 165;
-  qroute_area_init_x = 52;
-  qroute_area_final_x = 120;
+  slope = -0.9;
+  intercept = 40;
+  ga1_init_x = 100;
+  ga2_init_x = 130;
+  ga1_final_x = 190;
+  ga2_final_x = 160;
+  qroute_area_init_x = 44;
+  qroute_area_final_x = 82;
   overflow_flag = 2;
 
 
@@ -60,7 +60,7 @@ mine_distributor::mine_distributor()
   // no:of mines and label
   count = 300;
   mine_count = 0;
-  total_mines = 25;
+  total_mines = 100;
 
   line_increment = 50;
 
@@ -162,7 +162,7 @@ bool mine_distributor::Line_pattern(double duration)
      */
 
      std::ofstream outfile;
-     outfile.open("mines_line.txt", std::ios_base::app);
+     outfile.open("mines_line_ga1.txt", std::ios_base::app);
      outfile  << content_add <<"\n" ;
      outfile.close();
 
@@ -206,6 +206,11 @@ bool mine_distributor::Line_pattern(double duration)
      outfile << std::to_string(count) + "," + std::to_string(qroute_area_init_x + increment) + "," + std::to_string(y) << "\n" ;
      outfile.close();
 
+
+     outfile.open("mines_line_qroute.txt", std::ios_base::app);
+     outfile  << content_add <<"\n" ;
+     outfile.close();
+
      count ++;
      mine_count ++ ;
     increment += line_increment;
@@ -244,6 +249,10 @@ bool mine_distributor::Line_pattern(double duration)
      std::ofstream outfile;
      outfile.open("mines_ga2.csv", std::ios_base::app);
      outfile << std::to_string(count) + "," + std::to_string(ga2_init_x + increment) + "," + std::to_string(y) << "\n" ;
+     outfile.close();
+
+     outfile.open("mines_line_ga2.txt", std::ios_base::app);
+     outfile  << content_add <<"\n" ;
      outfile.close();
 
      count ++;

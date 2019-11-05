@@ -6,4 +6,3 @@ ProcessConfig = prelocate
   AppTick   = 1
   CommsTick = 1
 }
-]

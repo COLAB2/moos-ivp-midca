@@ -26,9 +26,12 @@
 
 using namespace std;
 zmq::context_t context(1);
+zmq::socket_t publisher(context, ZMQ_PUB);
 zmq::socket_t subscriber (context, ZMQ_SUB);
 zmq::socket_t subscriber_add_mine (context, ZMQ_SUB);
+zmq::socket_t subscriber_add_mine_external (context, ZMQ_SUB);
 zmq::socket_t publisher_mine(context, ZMQ_PUB);
+zmq::socket_t subscriber_ship (context, ZMQ_SUB);
 
 //---------------------------------------------------------
 // Constructor
@@ -242,6 +245,24 @@ bool relocate::hazard_feed(string line)
 
 bool relocate::Iterate()
 {
+  //  Read envelope with address
+  std::string address = s_recv (subscriber_ship);
+  //  Read message contents
+  std::string contents1 = s_recv (subscriber_ship);
+
+  // check to see if there is a message from midca
+  if  ( !contents1.empty() && contents1.compare("M") != 0)
+  {
+
+  // their scope is defined at pMarineViewer in alder.moos and alder.bhv files
+  // for the behaviour
+  Notify("mission","true");
+
+  // send the new points to MOOSDB
+  Notify("NEW_POINTS", contents1);
+
+
+  }
 
 
 //Notify("DB_CLIENTS","uXMS_166,pHostInfo,pShare,prelocate,uProcessWatch,pHelmIvP,pMarinePID,uSimMarine,");
@@ -277,6 +298,12 @@ if (lock == 0)
   if  ( !contents.empty() && contents.compare("M") != 0)
   {
     hazard_feed(contents);
+  }
+
+  contents = s_recv (subscriber_add_mine_external);
+  if  ( !contents.empty() && contents.compare("M") != 0)
+  {
+    hazard_feed(contents);
 
   }
 
@@ -290,9 +317,6 @@ for (int i =0 ; i < index_x ; i++)
       {
         s_sendmore(publisher_mine,"M");
         s_send(publisher_mine,to_string(label[i]));
-        x[i] = 1000;
-        y[i] = 1000;
-        
         lock = 1;
 
         // write to a file
@@ -326,6 +350,8 @@ if (lock == 1)
   newreport = newreport + "TIME=" + to_string(m_current_time) + ",";
   newreport = newreport + "LENGTH=1";
   Notify("NODE_REPORT_LOCAL", newreport);
+  s_send (publisher, "X:" + std::to_string(-1700) + "," + "Y:" + std::to_string(-1500) + "," + "SPEED:" + std::to_string(0) + "," + "HEADING:" + std::to_string(0));
+
   return(true);
 }
 else
@@ -344,6 +370,7 @@ else
   newreport = newreport + "TIME=" + to_string(m_current_time) + ",";
   newreport = newreport + "LENGTH=" + to_string(length) + ",";
   Notify("NODE_REPORT_LOCAL", newreport);
+  s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h));
 }
 
 index= index + 1;
@@ -361,7 +388,8 @@ return(true);
 
 bool relocate::OnStartUp()
 {
-
+    string publish_ip = "tcp://";
+      string subscribe_ip = "tcp://";
   list<string> sParams;
   m_MissionReader.EnableVerbatimQuoting(false);
   if(m_MissionReader.GetConfiguration(GetAppName(), sParams)) {
@@ -375,6 +403,12 @@ bool relocate::OnStartUp()
       }
       else if(param == "DELAYGROUP2") {
         delay_group2 = std::stod(value);
+      }
+      else if(param == "PUBLISH_IP") {
+          publish_ip = publish_ip + value;
+      }
+      else if(param == "SUBSCRIBE_IP") {
+          subscribe_ip = subscribe_ip + value;
       }
     }
   }
@@ -395,19 +429,32 @@ infile.close();
 //outfile.open("scores.csv", std::ios_base::app);
 //outfile << name + ",1" << "\n" ;
 //outfile.close();
-
+publisher.connect(publish_ip);
 publisher_mine.connect("tcp://127.0.0.1:5565");
+subscriber_ship.bind(subscribe_ip);
+subscriber_ship.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
+
 subscriber.connect("tcp://127.0.0.1:5570");
 subscriber_add_mine.connect("tcp://127.0.0.1:5522");
+subscriber_add_mine_external.connect("tcp://127.0.0.1:7593");
+
 subscriber.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
 subscriber_add_mine.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
+subscriber_add_mine_external.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
  int timeout = 1;
  int count = 2;
+
+ subscriber_ship.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
+
+
 subscriber.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
 subscriber.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
 subscriber_add_mine.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
 subscriber_add_mine.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
+subscriber_add_mine_external.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
+subscriber_add_mine_external.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
 publisher_mine.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
+publisher.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
 start = clock();
 RegisterVariables();
   return(true);

@@ -8,8 +8,6 @@
 #include <iterator>
 #include "MBUtils.h"
 #include "visual.h"
-#include <string>
-
 
 using namespace std;
 
@@ -69,23 +67,6 @@ bool visual::OnConnectToServer()
 }
 
 //---------------------------------------------------------
-// Procedure: distanceCalculate()
-//            happens AppTick times per second
-
-
-double visual::distanceCalculate(double x1, double y1, double x2, double y2)
-{
-	double x = x1 - x2; //calculating number to square in next step
-	double y = y1 - y2;
-	double dist;
-
-	dist = pow(x, 2) + pow(y, 2);       //calculating Euclidean distance
-	dist = sqrt(dist);
-
-	return dist;
-}
-
-//---------------------------------------------------------
 // Procedure: Iterate()
 //            happens AppTick times per second
 
@@ -95,8 +76,8 @@ bool visual::Iterate()
 // Just to view qroute and Ga1 and Ga2
 if (initialize == 0)
 {
-  string s = "";
-  /*
+
+
   // GA2
   string s = "radial:: x=150, y=-80, radius=20, pts=8, snap=1, label= GA2";
   Notify("VIEW_POLYGON",s);
@@ -106,60 +87,22 @@ if (initialize == 0)
   Notify("VIEW_POLYGON",s);
 
   // Qroute
-
   s= "pts={-105,-49:245,-49},  label= QROUTE";
   Notify("VIEW_SEGLIST",s);
 
   s= "pts={-113,-99:218,-100}";
   Notify("VIEW_SEGLIST",s);
-  */
-
-  // Grids
-  // This variable is the top left points on the grid
-  double top_left[2] = {-141,76};
-  double top_right[2] = {270,76};
-  double bottom_left[2] = {-141,-335};
-  double bottom_right[2] = {270,-335};
 
 
+  s= "pts={-132,-169:222,-169},  label= QROUTE1";
+  Notify("VIEW_SEGLIST",s);
 
-  double horizontal_dist = distanceCalculate(top_left[0],
-                                          top_left[1],
-                                          bottom_left[0],
-                                          bottom_left[1]);
+  s= "pts={-157,-226:238,-226}";
+  Notify("VIEW_SEGLIST",s);
 
-  double vertical_dist = distanceCalculate(top_left[0],
-                                          top_left[1],
-                                          top_right[0],
-                                          top_right[1]);
 
-  // grid size
-  int grid = 20 ;
 
-  // count is for labeling the grid
-  int count = 0;
-
-  // lines drawn vertical
-  for (int i=0; i < (horizontal_dist/grid); i++)
-  {
-    s= "pts={" + to_string(top_left[0]) + "," + to_string(top_left[1] - i*grid)
-               + ":" + to_string(top_right[0]) + ","
-               + to_string(top_right[1] - i*grid) + "},  label=" + to_string(i);
-
-    Notify("VIEW_SEGLIST",s);
-    count = count + 1;
-  }
-
-  // Lines drawn horizontal
-  for (int i=0; i < (vertical_dist/grid); i++)
-  {
-    s= "pts={" + to_string(top_left[0] + i*grid) + "," + to_string(top_left[1] )
-               + ":" + to_string(bottom_left[0] + i*grid) + ","
-               + to_string(bottom_left[1] ) + "},  label=" + to_string(i + count);
-
-    Notify("VIEW_SEGLIST",s);
-  }
-
+initialize = 1;
 }
 
 

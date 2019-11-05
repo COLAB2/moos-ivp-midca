@@ -6,9 +6,9 @@
 #         only then it goes for another run
 
 
-iterations=1 # no:of iterations
-TIME_LIMIT=300 # the maximum amount of time moos should run
-path=/home/sampath/Documents/git/moos-interface/world.py #path of the python program
+iterations=260 # no:of iterations
+TIME_LIMIT=330 # the maximum amount of time moos should run
+path=/home/sampath/Documents/git/midca/midca/examples/moos_flairs.py #path of the python program
 
 
 counter=1

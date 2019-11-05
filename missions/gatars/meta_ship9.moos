@@ -22,23 +22,22 @@ Processconfig = ANTLER
   Run = pShare             @ NewConsole = false
   Run = pHostInfo          @ NewConsole = false
   Run = uFldNodeBroker     @ NewConsole = false
-  Run = pmidca     	       @ NewConsole = false
 
 
 }
 
-ProcessConfig = pmidca
+
+
+ProcessConfig = prelocate
 {
   AppTick   = 1
   CommsTick = 1
   publish_ip = 127.0.0.1:6519
-  publish_mine_ip = 127.0.0.1:6539
   subscribe_ip = 127.0.0.1:6529
 }
 
 
 
-#include plug_prelocate.moos
 #include plug_uFldNodeBroker.moos
 #include plug_pShare.moos
 #include plug_pHostInfo.moos

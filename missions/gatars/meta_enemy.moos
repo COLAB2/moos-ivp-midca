@@ -23,6 +23,7 @@ Processconfig = ANTLER
   Run = pHostInfo          @ NewConsole = false
   Run = uFldNodeBroker     @ NewConsole = false
   Run = pmidca   	         @ NewConsole = false
+  Run = pmidca             @ NewConsole = false ~pmidca1
 
 }
 
@@ -33,6 +34,15 @@ ProcessConfig = pmidca
   publish_ip = 127.0.0.1:5590
   publish_mine_ip = 127.0.0.1:5591
   subscribe_ip = 127.0.0.1:5592
+}
+
+ProcessConfig = pmidca1
+{
+  AppTick   = 1
+  CommsTick = 1
+  publish_ip = 127.0.0.1:6590
+  publish_mine_ip = 127.0.0.1:6591
+  subscribe_ip = 127.0.0.1:6592
 }
 
 
