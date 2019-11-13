@@ -6,12 +6,13 @@
 #         only then it goes for another run
 
 
-iterations=260 # no:of iterations
+Experiments=5
+iterations=9 # no:of iterations
 TIME_LIMIT=330 # the maximum amount of time moos should run
 path=/home/sampath/Documents/git/midca/midca/examples/moos_flairs.py #path of the python program
 
 
-counter=1
+counter=24
 
 # For safety
 kill -9 $(cat /tmp/python.pid) >& /dev/null
@@ -25,10 +26,12 @@ trap "printf 'Killing all processes ... \n';
 
 
 # change the iteration number from 2 to number of runs
-while [ $counter -le $iterations ]
+totalexperiments=$(($iterations*$Experiments))
+while [ $counter -le $totalexperiments ]
 do
+  TIME_LIMIT=$(($(($(($counter%$iterations))*25))+110))
   echo "Welcome $counter times"
-  ((counter++))
+  echo "$TIME_LIMIT"
   cd ..
   cd ..
   #source clean.sh
@@ -47,6 +50,7 @@ do
   killall -9 pmidca pvisual prelocate pmine_distributor pmine_layer ppause_vessels
   printf "Done killing process.   \n"
   wait
+  ((counter++))
 done
   echo "Done, Completed all the iterations"
   exit 0
