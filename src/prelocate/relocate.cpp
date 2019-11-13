@@ -441,18 +441,18 @@ subscriber_add_mine_external.connect("tcp://127.0.0.1:7593");
 subscriber.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
 subscriber_add_mine.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
 subscriber_add_mine_external.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
- int timeout = 1;
+ int timeout = 2;
  int count = 2;
 
  subscriber_ship.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
 
 
 subscriber.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
-subscriber.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
+//subscriber.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
 subscriber_add_mine.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
-subscriber_add_mine.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
+//subscriber_add_mine.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
 subscriber_add_mine_external.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
-subscriber_add_mine_external.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
+//subscriber_add_mine_external.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
 publisher_mine.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
 publisher.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
 start = clock();

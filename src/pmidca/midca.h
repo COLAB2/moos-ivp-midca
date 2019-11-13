@@ -19,7 +19,7 @@ class midca : public CMOOSApp
    midca();
    ~midca();
 
- protected: // Standard MOOSApp functions to overload  
+ protected: // Standard MOOSApp functions to overload
    bool OnNewMail(MOOSMSG_LIST &NewMail);
    bool Iterate();
    bool OnConnectToServer();
@@ -28,7 +28,7 @@ class midca : public CMOOSApp
  protected:
    bool   m_first_reading;
    // navigation points from moos db
-   double m_current_x; 
+   double m_current_x;
    double m_current_y;
    // variables to distinguish new points
    double m_previous_x;
@@ -36,12 +36,14 @@ class midca : public CMOOSApp
    // spped from moos DB
    double m_current_s;
    double m_current_h;
-   // This variable is a condition variable sent to MoosDB for behavior 
+   // This variable is a condition variable sent to MoosDB for behavior
    string mission;
    // points read from MIDCA
    string points;
    // report
    string report;
+
+   string previous_report;
 
 
  protected:
@@ -52,4 +54,4 @@ class midca : public CMOOSApp
  private: // State variables
 };
 
-#endif 
+#endif

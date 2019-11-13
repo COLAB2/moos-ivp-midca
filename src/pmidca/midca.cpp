@@ -31,6 +31,7 @@ midca::midca()
    points = "ptx=0 # pty =0";
    mission = "false";
    report = "" ;
+   previous_report = "";
 
 }
 
@@ -77,11 +78,10 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
         m_current_h  = msg.GetDouble();
 
     }
-
-
     else if(key == "UHZ_DETECTION_REPORT"){
       report  = msg.GetString();
       s_send (publisher_mine, "MINE:" + report);
+      }
 
     }
 
@@ -96,7 +96,7 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
     bool   mdbl  = msg.IsDouble();
     bool   mstr  = msg.IsString();
 #endif
-   }
+
 
 
 
