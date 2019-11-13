@@ -29,7 +29,7 @@ trap "printf 'Killing all processes ... \n';
 totalexperiments=$(($iterations*$Experiments))
 while [ $counter -le $totalexperiments ]
 do
-  TIME_LIMIT=$(($(($(($counter%$iterations))*25))+110))
+  TIME_LIMIT=$(($(($(($counter%$iterations))*25))+120))
   echo "Welcome $counter times"
   echo "$TIME_LIMIT"
   cd ..
@@ -38,7 +38,7 @@ do
   #source build.sh
   sleep 2
   cd missions/gatars
-
+  ((counter++))
   printf "Launching The Moos application \n"
   ./clean.sh
   ./launch.sh >& moos_output.txt & sleep 5
@@ -50,7 +50,6 @@ do
   killall -9 pmidca pvisual prelocate pmine_distributor pmine_layer ppause_vessels
   printf "Done killing process.   \n"
   wait
-  ((counter++))
 done
   echo "Done, Completed all the iterations"
   exit 0

@@ -98,6 +98,7 @@ ProcessConfig = uFldHazardSensor
   show_pfa = false
   sensor_config = width=5, exp=8, pclass=0.88, max=1
   sensor_config = width=9, exp=8, pclass=1
+  sensor_config = width=8, exp=8, pclass=1
   sensor_config = width=50, exp=8, pclass=1
 
   show_detections = 5

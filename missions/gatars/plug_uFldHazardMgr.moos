@@ -5,7 +5,7 @@ ProcessConfig = uFldHazardMgr
 {
   AppTick   = 4
   CommsTick = 4
-  swath_width = 9
+  swath_width = 8
   sensor_pd   = 1
   report_name = $(VNAME)
 }
