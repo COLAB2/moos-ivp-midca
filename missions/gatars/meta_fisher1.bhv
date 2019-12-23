@@ -13,7 +13,7 @@ Behavior = BHV_Waypoint
   //points = pts={147,64:30,-197}
   points = pts= {149,45:149,25:149,5:149,-15:149,-35:149,-55:149,-75:149,-95:149,-115:149,-135:149,-155:149,-175:149,-195:149,-215:149,-235:149,-255:149,-275:149,-295:149,-315:}
   perpetual = true
-  updates   = fisher1
+  updates   = NEW_POINTS
   endflag = endmission = true
   visual_hints = nextpt_color=red, nextpt_lcolor=khaki
   visual_hints = edge_color=khaki, vertex_color=white
