@@ -1,4 +1,7 @@
-# moos-ivp-midca
+# moos-ivp-midca 
+Moos-ivp is currently not supported to work on windows.
+Works best on Ubuntu.
+Works fine on mac-os.
 
 # Installation Instructions
 
@@ -7,12 +10,14 @@
 3. Navigate to the moos-ivp directory, and clone the moos-ivp-midca directory.
    $ cd moos-ivp
    $ git clone https://github.com/COLAB2/moos-ivp-midca.git
+   $ cd moos-ivp-midca
+   $ git checkout moos_agda
 4. Navigate to the moos-ivp-midca directory, you will find a README file follow the instruction to install moos-ivp-midca
 5. Navigate to the moos-ivp/ivp/src directory, delete the folder named "uFldHazardSensor" and follow the instructions below
     $ cd moos-ivp/ivp/src
     $ git clone https://github.com/COLAB2/uFldHazardSensor.git
 6. Install Zmq from the website http://zeromq.org/intro:get-the-software
-7. Install MIDCA, follow the instructions from the link https://github.com/COLAB2/midca
+7. In you bash_profile or bashrc please export the paths for moos-ivp/bin and moos-ivp/moos-ivp-midca/bin.
 
 
 # Run the Demo
@@ -21,12 +26,6 @@
     $ ./clean.sh
     $ ./launch.sh
    A GUI Window will appear, please hit Deploy button.
-   
-2. Run MIDCA, navigate to the midca directory
-    $ cd midca/midca
-    $ cd examples
-    $ python moos_uuv.py
-   And then hit Enter.
    
    
  If there are any problems please feel free to contact "Sravya Kondrakunta" (kondrakunta.2@wright.edu).
