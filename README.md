@@ -33,8 +33,14 @@ Works fine on mac-os.
     $ cd moos-ivp
     $ ./build-ivp.sh
     ```
-7. Install Zmq from the website http://zeromq.org/intro:get-the-software
-8. In you bash_profile or bashrc please export the paths for moos-ivp/bin and moos-ivp/moos-ivp-midca/bin.
+7. Install Zmq from the website http://zeromq.org/intro:get-the-software as well as pyzmq using pip
+8. In you bash_profile or bashrc please export the paths for moos-ivp/bin and moos-ivp/moos-ivp-midca/bin and moos-ivp/moos-ivp-midca/scripts
+   ```
+   $ sudo nano ~/.bashrc
+   export PATH="/home/sampath/moos-ivp/moos-ivp-midca/bin:$PATH"
+   export PATH="/home/sampath/moos-ivp/moos-ivp-midca/bin:$PATH"
+   export PATH="/home/sampath/moos-ivp/moos-ivp-midca/scripts:$PATH"
+   ```
 
 
 # Run the Demo
