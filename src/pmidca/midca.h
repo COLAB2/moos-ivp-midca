@@ -42,7 +42,12 @@ class midca : public CMOOSApp
    string points;
    // report
    string report;
-   int duplicate_connection;
+
+   string previous_report;
+
+   string status;
+
+   int send_mine_flag;
 
 
  protected:

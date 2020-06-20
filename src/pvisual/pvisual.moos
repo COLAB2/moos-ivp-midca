@@ -1,9 +1,0 @@
-//------------------------------------------------
-// pvisual config block
-
-ProcessConfig = pvisual
-{
-   AppTick   = 4
-   CommsTick = 4
-}
-

@@ -1,9 +1,0 @@
-//------------------------------------------------
-// pmine_layer config block
-
-ProcessConfig = pmine_layer
-{
-   AppTick   = 4
-   CommsTick = 4
-}
-

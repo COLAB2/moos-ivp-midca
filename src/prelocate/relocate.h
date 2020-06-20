@@ -9,7 +9,6 @@
 #define relocate_HEADER
 
 #include "MOOS/libMOOS/MOOSLib.h"
-#include <time.h>
 
 class relocate : public CMOOSApp
 {
@@ -47,27 +46,13 @@ class relocate : public CMOOSApp
    double m_current_time;
    // INDEX
    int index;
-   // length of the ship
-   int length;
    // name
    std::string name;
-   // array
-   double x[1000];
-   double y[1000];
-   int label[1000];
-   int index_x;
-   int index_y;
-   int index_label;
-   int lock;
-   clock_t start;
-   int stop_lock;
-   float delay_group1;
-   float delay_group2;
-   int threshold_distance;
-   std::string mission;
-   std::string filename;
+   // wreck
+   int wreck;
+   // length of the ship
+   int length;
  protected:
-   bool hazard_feed(std::string);
    void RegisterVariables();
 
 

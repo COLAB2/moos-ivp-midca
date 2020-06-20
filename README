@@ -45,6 +45,7 @@ To build without using the supplied script, execute the following commands
 within this directory:
 
    $ mkdir -p build
+   $ mkdir -p lib
    $ cd build
    $ cmake ../
    $ make

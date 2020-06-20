@@ -2,7 +2,12 @@
 /*    NAME: Sravya                                              */
 /*    ORGN: WSU                                           */
 /*    FILE: midca.cpp                                        */
-/*    DATE:                                                 */
+/*    Functionality:    It does three specific things
+                        1. Communicates vehicle location (x,y), speed and heading
+                        2. Communicates Detected mines
+                        3. Subscribes way_points from midca */
+
+
 /************************************************************/
 
 #include <iterator>
@@ -16,7 +21,6 @@ using namespace std;
 
 zmq::context_t context(1);
 zmq::socket_t publisher(context, ZMQ_PUB);
-zmq::socket_t publisher_dup_ip(context, ZMQ_PUB);
 zmq::socket_t publisher_mine(context, ZMQ_PUB);
 zmq::socket_t subscriber (context, ZMQ_SUB);
 //---------------------------------------------------------
@@ -32,7 +36,9 @@ midca::midca()
    points = "ptx=0 # pty =0";
    mission = "false";
    report = "" ;
-   duplicate_connection = 0;
+   previous_report = "";
+   status = "";
+   send_mine_flag = 0;
 
 }
 
@@ -64,6 +70,7 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
   for(p=NewMail.begin(); p!=NewMail.end(); p++) {
     CMOOSMsg &msg = *p;
     string key   = msg.GetKey();
+
     if(key == "NAV_X"){
       m_current_x  = msg.GetDouble();
     }
@@ -79,11 +86,15 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
         m_current_h  = msg.GetDouble();
 
     }
-
+    else if(key == "IVPHELM_ALLSTOP"){
+        status  = msg.GetString();
+        }
 
     else if(key == "UHZ_DETECTION_REPORT"){
       report  = msg.GetString();
-      s_send (publisher_mine, "MINE:" + report);
+      if (send_mine_flag)
+        s_send (publisher_mine, "MINE:" + report);
+      }
 
     }
 
@@ -98,17 +109,14 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
     bool   mdbl  = msg.IsDouble();
     bool   mstr  = msg.IsString();
 #endif
-   }
+
 
 
 
     if (m_current_x != -1 && m_current_y != -1)
 	{
-	s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h));
-  if (duplicate_connection)
-  {
-    s_send (publisher_dup_ip, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h));
-}
+  // send vehicles current location speed and heading of format  "X:90,Y:180,SPEED:1.5,HEADING:180,STATUS:clear"
+  s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h) + "," + "STATUS:" + status);
   }
    return(true);
 }
@@ -137,17 +145,15 @@ bool midca::OnConnectToServer()
 bool midca::Iterate()
 {
 
-
 //  Read envelope with address
 std::string address = s_recv (subscriber);
 //  Read message contents
 std::string contents = s_recv (subscriber);
 
 
-// check to see if there is a message from midca
-if  ( !contents.empty() && contents.compare("M") != 0)
+// check to see if there is a message from midca for the vehicle behavior
+if  (address.compare("Vehicle") == 0 && !contents.empty() && contents.compare("Vehicle") != 0)
 {
-
 // their scope is defined at pMarineViewer in alder.moos and alder.bhv files
 // for the behaviour
 Notify("mission","true");
@@ -155,8 +161,27 @@ Notify("mission","true");
 // send the new points to MOOSDB
 Notify("NEW_POINTS", contents);
 
+}
+
+// check to see if there is a message from midca for Removing a Mine
+else if  ( address.compare("RemoveHazard") == 0 && !contents.empty() && contents.compare("RemoveHazard") != 0)
+{
+// add a variable RemoveMine so that the uFldHazardSensor can remove the mine reading the RemoveMine variable
+// this is also added in the configuration parameters of the uFldNodeBroker
+Notify("RemoveHazard", contents);
+}
+
+// check to see if there is a message from midca for adding a Mine
+else if  (address.compare("AddHazard") == 0 && !contents.empty() && contents.compare("AddHazard") != 0)
+{
+
+// add a variable RemoveMine so that the uFldHazardSensor can remove the mine reading the RemoveMine variable
+// this is also added in the configuration parameters of the uFldNodeBroker
+Notify("AddHazard", contents);
 
 }
+
+
   return(true);
 }
 
@@ -168,9 +193,9 @@ bool midca::OnStartUp()
 {
 
   string publish_ip = "tcp://";
-  string publish_mine_ip = "tcp://";
   string subscribe_ip = "tcp://";
-  string publish_dup_ip = "tcp://";
+  string publish_mine_ip = "tcp://";
+  
   list<string> sParams;
   m_MissionReader.EnableVerbatimQuoting(false);
   if(m_MissionReader.GetConfiguration(GetAppName(), sParams)) {
@@ -182,12 +207,9 @@ bool midca::OnStartUp()
         if(param == "PUBLISH_IP") {
             publish_ip = publish_ip + value;
         }
-        else if(param == "PUBLISH_DUP_IP") {
-            publish_dup_ip = publish_dup_ip + value;
-            duplicate_connection = 1;
-        }
         else if(param == "PUBLISH_MINE_IP") {
             publish_mine_ip = publish_mine_ip + value;
+            send_mine_flag = 1;
         }
         else if(param == "SUBSCRIBE_IP") {
             subscribe_ip = subscribe_ip + value;
@@ -200,24 +222,22 @@ bool midca::OnStartUp()
 
     }
   }
-  if (duplicate_connection)
-  {
-      int dup_count = 2;
-    publisher_dup_ip.connect(publish_dup_ip);
-    publisher_dup_ip.setsockopt (ZMQ_SNDHWM, &dup_count, sizeof (int));
-  }
-  publisher.connect(publish_ip);
-  publisher_mine.connect(publish_mine_ip);
+  publisher.bind(publish_ip);
   subscriber.bind(subscribe_ip);
-  subscriber.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
+  subscriber.setsockopt( ZMQ_SUBSCRIBE, "Vehicle" , 1);
+  subscriber.setsockopt( ZMQ_SUBSCRIBE, "RemoveHazard" , 1);
+  subscriber.setsockopt( ZMQ_SUBSCRIBE, "AddHazard" , 1);
   int timeout = 1;
   int count = 2;
   int count_mine = 0;
   subscriber.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
-  subscriber.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
   publisher.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
-  publisher_mine.setsockopt (ZMQ_SNDHWM, &count_mine, sizeof (int));
 
+  if (send_mine_flag)
+  {
+  publisher_mine.bind(publish_mine_ip);
+  publisher_mine.setsockopt (ZMQ_SNDHWM, &count_mine, sizeof (int));
+  }
   RegisterVariables();
   return(true);
 }
@@ -227,9 +247,11 @@ bool midca::OnStartUp()
 
 void midca::RegisterVariables()
 {
+  Register("IVPHELM_ALLSTOP", 0);
   Register("NAV_X", 0);
   Register("NAV_Y", 0);
   Register("NAV_SPEED", 0);
   Register("NAV_HEADING", 0);
   Register("UHZ_DETECTION_REPORT", 0);
+
 }
