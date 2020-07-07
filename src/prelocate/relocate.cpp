@@ -194,6 +194,7 @@ if (wreck == 1)
   newreport = newreport + "TIME=" + to_string(m_current_time) + ",";
   newreport = newreport + "LENGTH=1";
   Notify("NODE_REPORT_LOCAL", newreport);
+  Notify("SHIP_STATUS", "Wreck");
 }
 else
 {

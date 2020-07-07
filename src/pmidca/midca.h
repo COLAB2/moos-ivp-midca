@@ -47,6 +47,8 @@ class midca : public CMOOSApp
 
    string status;
 
+   string ship_status;
+
    int send_mine_flag;
 
 

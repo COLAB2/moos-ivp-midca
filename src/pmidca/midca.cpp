@@ -38,6 +38,7 @@ midca::midca()
    report = "" ;
    previous_report = "";
    status = "";
+   ship_status = "";
    send_mine_flag = 0;
 
 }
@@ -89,6 +90,9 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
     else if(key == "IVPHELM_ALLSTOP"){
         status  = msg.GetString();
         }
+    else if(key == "SHIP_STATUS"){
+            ship_status  = msg.GetString();
+            }
 
     else if(key == "UHZ_DETECTION_REPORT"){
       report  = msg.GetString();
@@ -115,9 +119,16 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
 
     if (m_current_x != -1 && m_current_y != -1)
 	{
-  // send vehicles current location speed and heading of format  "X:90,Y:180,SPEED:1.5,HEADING:180,STATUS:clear"
-  s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h) + "," + "STATUS:" + status);
+  if (ship_status != "")
+  {
+
+    // send vehicles current location speed and heading of format  "X:90,Y:180,SPEED:1.5,HEADING:180,STATUS:clear"
+    s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h) + "," + "STATUS:" + ship_status);
   }
+  else
+    s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h) + "," + "STATUS:" + status);
+
+    }
    return(true);
 }
 
@@ -195,7 +206,7 @@ bool midca::OnStartUp()
   string publish_ip = "tcp://";
   string subscribe_ip = "tcp://";
   string publish_mine_ip = "tcp://";
-  
+
   list<string> sParams;
   m_MissionReader.EnableVerbatimQuoting(false);
   if(m_MissionReader.GetConfiguration(GetAppName(), sParams)) {
@@ -253,5 +264,6 @@ void midca::RegisterVariables()
   Register("NAV_SPEED", 0);
   Register("NAV_HEADING", 0);
   Register("UHZ_DETECTION_REPORT", 0);
+  Register("SHIP_STATUS", 0);
 
 }
