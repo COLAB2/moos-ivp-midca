@@ -4,8 +4,10 @@ Works best on Ubuntu.
 Works fine on mac-os.
 
 # Installation Instructions
-
-1. Download MOOS from the website "http://oceanai.mit.edu/moos-ivp/pmwiki/pmwiki.php?n=Site.Download"
+1. Download MOOS using the following link:
+```
+   $ svn co https://oceanai.mit.edu/svn/moos-ivp-aro/releases/moos-ivp-17.7 moos-ivp
+```
 2. Navigate to the moos-ivp directory you recently downloaded, you will find seperate README files for the installation     instructions depending on the platform you are using. Please follow those instuctions and install moos-ivp.
 3. Navigate to the moos-ivp directory, and clone the moos-ivp-midca directory.
    ```
@@ -37,7 +39,7 @@ Works fine on mac-os.
 8. In you bash_profile or bashrc please export the paths for moos-ivp/bin and moos-ivp/moos-ivp-midca/bin and moos-ivp/moos-ivp-midca/scripts
    ```
    $ sudo nano ~/.bashrc
-   export PATH="/home/sampath/moos-ivp/moos-ivp-midca/bin:$PATH"
+   export PATH="/home/sampath/moos-ivp/bin:$PATH"
    export PATH="/home/sampath/moos-ivp/moos-ivp-midca/bin:$PATH"
    export PATH="/home/sampath/moos-ivp/moos-ivp-midca/scripts:$PATH"
    ```
