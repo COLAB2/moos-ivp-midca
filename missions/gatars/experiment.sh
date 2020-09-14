@@ -5,7 +5,6 @@
 # Note : please introduce a delay of 5 sec in the python script and terminate the program
 #         only then it goes for another run
 
-
 Experiments=10
 iterations=5 # no:of iterations
 TIME_LIMIT=330 # the maximum amount of time moos should run
@@ -13,7 +12,6 @@ path=/home/sampath/Documents/git/midca/midca/examples/moos_flairs.py #path of th
 
 
 counter=0
-
 # For safety
 kill -9 $(cat /tmp/python.pid) >& /dev/null
 # to safe kill all the process

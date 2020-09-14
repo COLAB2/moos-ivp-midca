@@ -22,25 +22,35 @@ Processconfig = ANTLER
   Run = pShare             @ NewConsole = false
   Run = pHostInfo          @ NewConsole = false
   Run = uFldNodeBroker     @ NewConsole = false
-
+  Run = uFldHazardMgr      @ NewConsole = false
 
 }
-
 
 
 ProcessConfig = prelocate
 {
   AppTick   = 1
   CommsTick = 1
-  publish_ip = 127.0.0.1:6514
-  subscribe_ip = 127.0.0.1:6524
+}
+
+//--------------------------------------------------
+// uFldHazardMgr configuration block from plugin
+
+ProcessConfig = uFldHazardMgr
+{
+  AppTick   = 2
+  CommsTick = 2
+  swath_width = 5
+  sensor_pd   = 1
+  show_swath = false
+  swath_length = 4
+  report_name = $(VNAME)
 }
 
 
 #include plug_uFldNodeBroker.moos
 #include plug_pShare.moos
 #include plug_pHostInfo.moos
-
 
 #include plug_uSimMarine.moos
 #include plug_pHelmIvP.moos

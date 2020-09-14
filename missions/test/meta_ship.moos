@@ -23,14 +23,17 @@ Processconfig = ANTLER
   Run = pHostInfo          @ NewConsole = false
   Run = uFldNodeBroker     @ NewConsole = false
   Run = uFldHazardMgr      @ NewConsole = false
+  Run = pmidca          @ NewConsole = false
 
 }
 
 
-ProcessConfig = prelocate
+ProcessConfig = pmidca
 {
   AppTick   = 1
   CommsTick = 1
+  publish_ip = 127.0.0.1:5000
+  subscribe_ip = 127.0.0.1:6000
 }
 
 //--------------------------------------------------

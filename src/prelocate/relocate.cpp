@@ -16,22 +16,17 @@
 #include <iostream>
 #include <math.h>
 #include <fstream>
-#include <time.h>
 #include <fstream>
 #include <unistd.h>
 #include "zhelpers.hpp"
 #include <cstdio>
+#include <string>
+
 
 
 
 using namespace std;
-zmq::context_t context(1);
-zmq::socket_t publisher(context, ZMQ_PUB);
-zmq::socket_t subscriber (context, ZMQ_SUB);
-zmq::socket_t subscriber_add_mine (context, ZMQ_SUB);
-zmq::socket_t subscriber_add_mine_external (context, ZMQ_SUB);
-zmq::socket_t publisher_mine(context, ZMQ_PUB);
-zmq::socket_t subscriber_ship (context, ZMQ_SUB);
+
 
 //---------------------------------------------------------
 // Constructor
@@ -64,19 +59,8 @@ relocate::relocate()
   length = 5;
   // name
   name = "";
-
-  index_x = 0;
-  index_y = 0;
-  index_label=0;
-  lock = 0;
-
-  start = -1.0;
-  stop_lock = 0;
-
-  // distance
-  threshold_distance = 3;
-  //filename = "/home/sampath/moos-ivp/moos-ivp-midca/missions/new/hazards.txt";
-  filename = "../../missions/gatars/hazards6.txt" ;
+  // check if the ship is wrecked or not
+  wreck = 0;
 }
 
 //---------------------------------------------------------
@@ -132,10 +116,20 @@ bool relocate::OnNewMail(MOOSMSG_LIST &NewMail)
 
       m_current_d = msg.GetDouble();
     }
-    else
-    {
-      return(true);
-    }
+    else if(key == "UHZ_DETECTION_REPORT"){
+      wreck = 1;
+
+      // get the mine label and notify to the hazardsensor
+      std::string s = msg.GetString();
+      std::string delimiter = "=";
+      size_t pos = 0;
+      std::string token;
+      while ((pos = s.find(delimiter)) != std::string::npos) {
+      token = s.substr(0, pos);
+      s.erase(0, pos + delimiter.length());
+      }
+      Notify("RemoveHazard", s);
+      }
 
 
 #if 0 // Keep these around just for template
@@ -167,103 +161,11 @@ bool relocate::OnConnectToServer()
    return(true);
 }
 
-//---------------------------------------------------------
-double distanceCalculate(double x1, double y1, double x2, double y2)
-{
-	double x = x1 - x2; //calculating number to square in next step
-	double y = y1 - y2;
-	double dist;
-
-	dist = pow(x, 2) + pow(y, 2);       //calculating Euclidean distance
-	dist = sqrt(dist);
-
-	return dist;
-}
-
-
-// supporting function to add mines to respective arrays
-bool relocate::hazard_feed(string line)
-{
-  std::string line_label;
-  std::string line_y;
-  line = line.replace(0,9,"");
-  for (int i =0 ; i < line.length() ; i++)
-   {
-
-       if (line[i] == ',')
-       {
-           line_y = line;
-           line_y = line_y.replace(0,i+1,"");
-           line = line.replace(i,line.length(),"");
-           line = line.replace(0,2,"");
-           double temp = std::stod( line);
-           x[index_x] = temp;
-           index_x = index_x + 1;
-           //x[index_x] = std::stoi( line) ;
-           //index_x = index_x + 1;
-           break;
-   }
-
-
-  }
-
-  for (int i =0 ; i < line_y.length() ; i++)
-   {
-       if (line_y[i] == ',')
-       {
-           line_label = line_y;
-           line_label = line_label.replace(0,i+1,"");
-           line_y = line_y.replace(i,line_y.length(),"");
-           line_y = line_y.replace(0,2,"");
-
-           double temp = std::stod( line_y);
-           y[index_y] = temp;
-           index_y = index_y + 1;
-            break;
-   }
-  }
-  for (int i =0 ; i < line_label.length() ; i++)
-   {
-       if (line_label[i] == ',')
-       {
-           line_label = line_label.replace(i,line_label.length(),"");
-           line_label = line_label.replace(0,7,"");
-           int temp = std::stoi(line_label);
-           label[index_label] = temp;
-           index_label = index_label + 1;
-            break;
-   }
-  }
-
-  return (true);
-}
-
-
-
 // Procedure: Iterate()
 //            happens AppTick times per second
 
 bool relocate::Iterate()
 {
-  //  Read envelope with address
-  std::string address = s_recv (subscriber_ship);
-  //  Read message contents
-  std::string contents1 = s_recv (subscriber_ship);
-
-  // check to see if there is a message from midca
-  if  ( !contents1.empty() && contents1.compare("M") != 0)
-  {
-
-  // their scope is defined at pMarineViewer in alder.moos and alder.bhv files
-  // for the behaviour
-  Notify("mission","true");
-
-  // send the new points to MOOSDB
-  Notify("NEW_POINTS", contents1);
-
-
-  }
-
 
 //Notify("DB_CLIENTS","uXMS_166,pHostInfo,pShare,prelocate,uProcessWatch,pHelmIvP,pMarinePID,uSimMarine,");
 //  Notify("NODE_REPORT_LOCAL","NAME=ship,X=206.77,Y=-66.34,SPD=0,HDG=84.8,DEP=0,LAT=43.82473273,
@@ -276,65 +178,8 @@ bool relocate::Iterate()
 // If it is zero, then transport the ship to a different location outside the experiment
 // if it is one, continously send the current location of the ship (same functionality as pNodeReporter)
 // appending name
-if (lock == 0)
+if (wreck == 1)
 {
-
-  // check if there is a mine removed
-  std::string contents = s_recv (subscriber);
-  if  ( !contents.empty() && contents.compare("M") != 0)
-  {
-    int label_mine = std::stoi (contents);
-  for (int i =0 ; i < index_label ; i++)
-  {
-    if (label[i] == label_mine)
-      {
-        x[i] = 1000;
-        y[i] = 1000;
-      }
-  }
-  }
-
-  contents = s_recv (subscriber_add_mine);
-  if  ( !contents.empty() && contents.compare("M") != 0)
-  {
-    hazard_feed(contents);
-  }
-
-  contents = s_recv (subscriber_add_mine_external);
-  if  ( !contents.empty() && contents.compare("M") != 0)
-  {
-    hazard_feed(contents);
-
-  }
-
-
-
-newreport = newreport + "Name=" + name + ",";
-for (int i =0 ; i < index_x ; i++)
-{
-    double distance =  distanceCalculate(x[i],y[i],m_current_x,m_current_y)  ;
-    if ( distance < threshold_distance)
-      {
-        s_sendmore(publisher_mine,"M");
-        s_send(publisher_mine,to_string(label[i]));
-        lock = 1;
-
-        // write to a file
-        //std::ofstream outfile;
-        //outfile.open("scores.csv", std::ios_base::app);
-        //outfile << name + ",-1" << "\n" ;
-        //outfile.close();
-
-        break;
-
-      }
-
-}
-}
-if (lock == 1)
-{
-  newreport = "";
-  index = index + 1;
   newreport = newreport + "Name=" + name + ",";
   newreport = newreport + "X=-1700,";
   newreport = newreport + "Y=-1500,";
@@ -345,17 +190,15 @@ if (lock == 1)
   newreport = newreport + "LONG=0," ;
   newreport = newreport + "TYPE=SHIP,";
   newreport = newreport + "MODE=PARK,";
-  newreport = newreport + "ALLSTOP=NothingToDo,";
+  newreport = newreport + "ALLSTOP=Wreck,";
   newreport = newreport + "INDEX=" + to_string(index) + ",";
   newreport = newreport + "TIME=" + to_string(m_current_time) + ",";
   newreport = newreport + "LENGTH=1";
   Notify("NODE_REPORT_LOCAL", newreport);
-  s_send (publisher, "X:" + std::to_string(-1700) + "," + "Y:" + std::to_string(-1500) + "," + "SPEED:" + std::to_string(0) + "," + "HEADING:" + std::to_string(0));
-
-  return(true);
 }
 else
 {
+  newreport = newreport + "Name=" + name + ",";
   newreport = newreport + "X=" + to_string(m_current_x) + ",";
   newreport = newreport + "Y=" + to_string(m_current_y) + ",";
   newreport = newreport + "SPD=" + to_string(m_current_s) + ",";
@@ -370,7 +213,6 @@ else
   newreport = newreport + "TIME=" + to_string(m_current_time) + ",";
   newreport = newreport + "LENGTH=" + to_string(length) + ",";
   Notify("NODE_REPORT_LOCAL", newreport);
-  s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h));
 }
 
 index= index + 1;
@@ -388,8 +230,6 @@ return(true);
 
 bool relocate::OnStartUp()
 {
-    string publish_ip = "tcp://";
-      string subscribe_ip = "tcp://";
   list<string> sParams;
   m_MissionReader.EnableVerbatimQuoting(false);
   if(m_MissionReader.GetConfiguration(GetAppName(), sParams)) {
@@ -398,64 +238,9 @@ bool relocate::OnStartUp()
       string original_line = *p;
       string param = stripBlankEnds(toupper(biteString(*p, '=')));
       string value = stripBlankEnds(*p);
-      if(param == "DELAYGROUP1") {
-        delay_group1 = std::stod(value);
-      }
-      else if(param == "DELAYGROUP2") {
-        delay_group2 = std::stod(value);
-      }
-      else if(param == "PUBLISH_IP") {
-          publish_ip = publish_ip + value;
-      }
-      else if(param == "SUBSCRIBE_IP") {
-          subscribe_ip = subscribe_ip + value;
-      }
     }
   }
 
-
-  std::string line;
-  std::ifstream infile(filename);
-  while (std::getline(infile, line))
-  {
-
-    hazard_feed(line);
-
-
-  }
-infile.close();
-// write to a file
-//std::ofstream outfile;
-//outfile.open("scores.csv", std::ios_base::app);
-//outfile << name + ",1" << "\n" ;
-//outfile.close();
-publisher.connect(publish_ip);
-publisher_mine.connect("tcp://127.0.0.1:5565");
-subscriber_ship.bind(subscribe_ip);
-subscriber_ship.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
-
-subscriber.connect("tcp://127.0.0.1:5570");
-subscriber_add_mine.connect("tcp://127.0.0.1:5522");
-subscriber_add_mine_external.connect("tcp://127.0.0.1:7593");
-
-subscriber.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
-subscriber_add_mine.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
-subscriber_add_mine_external.setsockopt( ZMQ_SUBSCRIBE, "M" , 1);
- int timeout = 2;
- int count = 2;
-
- subscriber_ship.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
-
-
-subscriber.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
-//subscriber.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
-subscriber_add_mine.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
-//subscriber_add_mine.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
-subscriber_add_mine_external.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
-//subscriber_add_mine_external.setsockopt (ZMQ_CONFLATE, &timeout, sizeof (int));
-publisher_mine.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
-publisher.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
-start = clock();
 RegisterVariables();
   return(true);
 }
@@ -473,4 +258,5 @@ void relocate::RegisterVariables()
   Register("NAV_LAT", 0);
   Register("NAV_LONG", 0);
   Register("IVPHELM_STATE", 0);
+  Register("UHZ_DETECTION_REPORT", 0);
 }

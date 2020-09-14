@@ -45,6 +45,8 @@ class midca : public CMOOSApp
 
    string previous_report;
 
+   string status;
+
 
  protected:
    void RegisterVariables();

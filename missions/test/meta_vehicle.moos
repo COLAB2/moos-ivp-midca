@@ -5,20 +5,20 @@ Simulator  = true
 // Community name IS the vehicle name
 Community  = $(VNAME)
 
-
 #include plug_origin_warp.moos
 
 //------------------------------------------------------------
 Processconfig = ANTLER
 {
-  MSBetweenLaunches = 300
+  MSBetweenLaunches = 150
 
   Run = MOOSDB             @ NewConsole = false
   Run = uSimMarine         @ NewConsole = false
+  Run = pNodeReporter      @ NewConsole = false
   Run = pMarinePID         @ NewConsole = false
   Run = pHelmIvP           @ NewConsole = false
   Run = uProcessWatch      @ NewConsole = false
-  Run = prelocate          @ NewConsole = false
+  Run = pmidca             @ NewConsole = false
   Run = pShare             @ NewConsole = false
   Run = pHostInfo          @ NewConsole = false
   Run = uFldNodeBroker     @ NewConsole = false
@@ -26,11 +26,12 @@ Processconfig = ANTLER
 
 }
 
-
-ProcessConfig = prelocate
+ProcessConfig = pmidca
 {
   AppTick   = 1
   CommsTick = 1
+  publish_ip = 127.0.0.1:4999
+  subscribe_ip = 127.0.0.1:5999
 }
 
 //--------------------------------------------------
@@ -38,12 +39,12 @@ ProcessConfig = prelocate
 
 ProcessConfig = uFldHazardMgr
 {
-  AppTick   = 2
-  CommsTick = 2
-  swath_width = 5
+  AppTick   = 1
+  CommsTick = 1
+  swath_width = 8
+  swath_length = 12
+  show_swath = true
   sensor_pd   = 1
-  show_swath = false
-  swath_length = 4
   report_name = $(VNAME)
 }
 
