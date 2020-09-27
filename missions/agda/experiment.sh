@@ -6,9 +6,8 @@
 #         only then it goes for another run
 
 
-iterations=1 # no:of iterations
-TIME_LIMIT=300 # the maximum amount of time moos should run
-path=/home/sampath/Documents/AGDACODE/world.py #path of the python program
+iterations=1000 # no:of iterations
+path=/home/sampath/Documents/git/moos-interface/world.py #path of the python program
 
 
 counter=1
@@ -39,9 +38,11 @@ do
   printf "Launching The Moos application \n"
   ./clean.sh
   ./launch.sh >& moos_output.txt & sleep 5
-  uPokeDB meta_shoreside.moos DEPLOY=true MOOS_MANUAL_OVERIDE=false >& poke.txt & sleep 5
-  python $path & echo $! > /tmp/python.pid & sleep $TIME_LIMIT
+  ./pokedb.sh >& poke.txt & sleep 5
+  python2 $path & echo $! > /tmp/python.pid
+  wait -n
   printf "Killing the process ... \n"
+  pkill -P $$
   mykill
   kill -9 $(cat /tmp/python.pid)
   killall -9 pmidca pvisual prelocate pmine_distributor pmine_layer ppause_vessels

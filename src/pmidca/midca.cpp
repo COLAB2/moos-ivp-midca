@@ -40,6 +40,7 @@ midca::midca()
    status = "";
    ship_status = "";
    send_mine_flag = 0;
+   contents_history = "";
 
 }
 
@@ -169,8 +170,12 @@ if  (address.compare("Vehicle") == 0 && !contents.empty() && contents.compare("V
 // for the behaviour
 Notify("mission","true");
 
-// send the new points to MOOSDB
-Notify("NEW_POINTS", contents);
+if (contents.compare(contents_history) != 0 )
+  {
+  // send the new points to MOOSDB
+  Notify("NEW_POINTS", contents);
+  contents_history = contents;
+  }
 
 }
 

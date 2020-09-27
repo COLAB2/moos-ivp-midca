@@ -38,36 +38,36 @@ VNAME1="remus"      # The first   vehicle community
 START_POS1="49,67"
 ANGLE="180,0"
 
-VNAME2="Titanic"      # The SHIP
+VNAME2="Altmark"      # The SHIP
 START_POS2="-35,-16"
 ship_angle="90,0"
 
-VNAME3="Chesapeake"      # The SHIP
+VNAME3="Astron"      # The SHIP
 START_POS3="-75,-49"
 
-VNAME4="CarlVinson"      # The SHIP
+VNAME4="USS-Adhara"      # The SHIP
 START_POS4="-50,-60"
 
-VNAME5="CorpusChristi"      # The SHIP
+VNAME5="USS-Alderamin"      # The SHIP
 START_POS5="-97,-60"
 ship_angle="90,0"
 
-VNAME6="Pittsburgh"      # The SHIP
+VNAME6="SS-AmericanVictory"      # The SHIP
 START_POS6="-80,-76"
 
-VNAME7="Intrepid"      # The SHIP
+VNAME7="MS-Antenor"      # The SHIP
 START_POS7="-95,-95"
 
-VNAME8="Liberty"      # The SHIP
+VNAME8="USS-Aludra"      # The SHIP
 START_POS8="-104,-113"
 
-VNAME9="Ohio"      # The SHIP
+VNAME9="USS-Albireo"      # The SHIP
 START_POS9="-61,-102"
 
-VNAME10="alaska"      # The SHIP
+VNAME10="USS-Alkes"      # The SHIP
 START_POS10="-100,-126"
 
-VNAME11="Patriot"      # The SHIP
+VNAME11="USS-Ara"      # The SHIP
 START_POS11="-95,-140"
 
 VNAME12="fisher1"      # The SHIP
@@ -229,13 +229,13 @@ nsplug meta_ship.bhv targ_$VNAME10.bhv -f VNAME=$VNAME10   \
 nsplug meta_ship.bhv targ_$VNAME11.bhv -f VNAME=$VNAME11   \
     START_POS=$START_POS11 VNAME1=$VNAME11
 
-nsplug meta_fisher1.bhv targ_$VNAME12.bhv -f VNAME=$VNAME12   \
+nsplug meta_fisher4.bhv targ_$VNAME12.bhv -f VNAME=$VNAME12   \
     START_POS=$START_POS12 VNAME1=$VNAME12
 
-nsplug meta_fisher2.bhv targ_$VNAME13.bhv -f VNAME=$VNAME13   \
+nsplug meta_fisher4.bhv targ_$VNAME13.bhv -f VNAME=$VNAME13   \
     START_POS=$START_POS13 VNAME1=$VNAME13
 
-nsplug meta_fisher3.bhv targ_$VNAME14.bhv -f VNAME=$VNAME14   \
+nsplug meta_fisher4.bhv targ_$VNAME14.bhv -f VNAME=$VNAME14   \
     START_POS=$START_POS14 VNAME1=$VNAME14
 
 nsplug meta_fisher4.bhv targ_$VNAME15.bhv -f VNAME=$VNAME15   \
