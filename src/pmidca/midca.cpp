@@ -21,6 +21,7 @@ using namespace std;
 
 zmq::context_t context(1);
 zmq::socket_t publisher(context, ZMQ_PUB);
+zmq::socket_t publisher_mine(context, ZMQ_PUB);
 zmq::socket_t subscriber (context, ZMQ_SUB);
 //---------------------------------------------------------
 // Constructor
@@ -37,6 +38,9 @@ midca::midca()
    report = "" ;
    previous_report = "";
    status = "";
+   ship_status = "";
+   send_mine_flag = 0;
+   contents_history = "";
 
 }
 
@@ -62,12 +66,13 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
   m_current_s = -1;
   m_current_h = -1;
   report = "false";
-
-
+  string name;
 
   for(p=NewMail.begin(); p!=NewMail.end(); p++) {
     CMOOSMsg &msg = *p;
     string key   = msg.GetKey();
+    double mtime = msg.GetTime();
+    name = msg.GetCommunity();
 
     if(key == "NAV_X"){
       m_current_x  = msg.GetDouble();
@@ -87,11 +92,23 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
     else if(key == "IVPHELM_ALLSTOP"){
         status  = msg.GetString();
         }
+    else if(key == "SHIP_STATUS"){
+            ship_status  = msg.GetString();
+            }
+
+    else if(key == "mission")
+    {
+          mission  = msg.GetString();
+        }
 
     else if(key == "UHZ_DETECTION_REPORT"){
       report  = msg.GetString();
-      s_sendmore(publisher, "Hazard");
-      s_send (publisher, "MINE:" + report);
+      if (send_mine_flag)
+      {
+        sleep(0.1);
+        s_send (publisher_mine, "MINE:" + report + ",TIME=" + std::to_string(mtime));
+        sleep(0.1);
+      }
       }
 
     }
@@ -113,10 +130,21 @@ bool midca::OnNewMail(MOOSMSG_LIST &NewMail)
 
     if (m_current_x != -1 && m_current_y != -1)
 	{
-  // send vehicles current location speed and heading of format  "X:90,Y:180,SPEED:1.5,HEADING:180,STATUS:clear"
-  s_sendmore(publisher, "Vehicle");
-  s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h) + "," + "STATUS:" + status);
+
+  if (ship_status != "")
+  {
+    sleep(0.1);
+    // send vehicles current location speed and heading of format  "X:90,Y:180,SPEED:1.5,HEADING:180,STATUS:clear"
+    s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h) + "," + "STATUS:" + ship_status+ "," + "SEARCH:" + mission + "," + "TIME:" + std::to_string(MOOSTime())  + "," + "NAME:" + name);
+    sleep(0.1);
   }
+  else
+  {
+    sleep(0.1);
+    s_send (publisher, "X:" + std::to_string(m_current_x) + "," + "Y:" + std::to_string(m_current_y) + "," + "SPEED:" + std::to_string(m_current_s) + "," + "HEADING:" + std::to_string(m_current_h) + "," + "STATUS:" + status + "," + "SEARCH:" + mission+ "," + "TIME:" + std::to_string(MOOSTime())+ "," + "NAME:" + name);
+    sleep(0.1);
+  }
+    }
    return(true);
 }
 
@@ -157,8 +185,12 @@ if  (address.compare("Vehicle") == 0 && !contents.empty() && contents.compare("V
 // for the behaviour
 Notify("mission","true");
 
-// send the new points to MOOSDB
-Notify("NEW_POINTS", contents);
+if (contents.compare(contents_history) != 0 )
+  {
+  // send the new points to MOOSDB
+  Notify("NEW_POINTS", contents);
+  contents_history = contents;
+  }
 
 }
 
@@ -180,6 +212,26 @@ Notify("AddHazard", contents);
 
 }
 
+// check to see if there is a message from midca for adding a Mine
+else if  (address.compare("AddMarker") == 0 && !contents.empty() && contents.compare("AddMarker") != 0)
+{
+
+// add a variable RemoveMine so that the uFldHazardSensor can remove the mine reading the RemoveMine variable
+// this is also added in the configuration parameters of the uFldNodeBroker
+Notify("AddMarker", contents);
+
+}
+
+// check to see if there is a message from midca for adding a Mine
+else if  (address.compare("RemoveMarker") == 0 && !contents.empty() && contents.compare("RemoveMarker") != 0)
+{
+// add a variable RemoveMine so that the uFldHazardSensor can remove the mine reading the RemoveMine variable
+// this is also added in the configuration parameters of the uFldNodeBroker
+Notify("RemoveMarker", contents);
+
+}
+
+
 
   return(true);
 }
@@ -193,6 +245,8 @@ bool midca::OnStartUp()
 
   string publish_ip = "tcp://";
   string subscribe_ip = "tcp://";
+  string publish_mine_ip = "tcp://";
+
   list<string> sParams;
   m_MissionReader.EnableVerbatimQuoting(false);
   if(m_MissionReader.GetConfiguration(GetAppName(), sParams)) {
@@ -203,6 +257,10 @@ bool midca::OnStartUp()
       string value = *p;
         if(param == "PUBLISH_IP") {
             publish_ip = publish_ip + value;
+        }
+        else if(param == "PUBLISH_MINE_IP") {
+            publish_mine_ip = publish_mine_ip + value;
+            send_mine_flag = 1;
         }
         else if(param == "SUBSCRIBE_IP") {
             subscribe_ip = subscribe_ip + value;
@@ -220,13 +278,21 @@ bool midca::OnStartUp()
   subscriber.setsockopt( ZMQ_SUBSCRIBE, "Vehicle" , 1);
   subscriber.setsockopt( ZMQ_SUBSCRIBE, "RemoveHazard" , 1);
   subscriber.setsockopt( ZMQ_SUBSCRIBE, "AddHazard" , 1);
+  subscriber.setsockopt( ZMQ_SUBSCRIBE, "AddMarker" , 1);
+  subscriber.setsockopt( ZMQ_SUBSCRIBE, "RemoveMarker" , 1);
   int timeout = 1;
   int count = 2;
   int count_mine = 0;
   subscriber.setsockopt (ZMQ_RCVTIMEO, &timeout, sizeof (int));
-  publisher.setsockopt (ZMQ_SNDHWM, &count_mine, sizeof (int));
+  publisher.setsockopt (ZMQ_SNDHWM, &count, sizeof (int));
 
+  if (send_mine_flag)
+  {
+  publisher_mine.bind(publish_mine_ip);
+  publisher_mine.setsockopt (ZMQ_SNDHWM, &count_mine, sizeof (int));
+  }
   RegisterVariables();
+  Notify("mission","false");
   return(true);
 }
 
@@ -241,5 +307,7 @@ void midca::RegisterVariables()
   Register("NAV_SPEED", 0);
   Register("NAV_HEADING", 0);
   Register("UHZ_DETECTION_REPORT", 0);
+  Register("SHIP_STATUS", 0);
+  Register("mission", 0);
 
 }

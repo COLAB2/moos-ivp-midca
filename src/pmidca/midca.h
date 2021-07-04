@@ -47,6 +47,12 @@ class midca : public CMOOSApp
 
    string status;
 
+   string ship_status;
+
+   string contents_history;
+
+   int send_mine_flag;
+
 
  protected:
    void RegisterVariables();

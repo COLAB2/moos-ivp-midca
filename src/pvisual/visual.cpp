@@ -38,6 +38,13 @@ bool visual::OnNewMail(MOOSMSG_LIST &NewMail)
 
   for(p=NewMail.begin(); p!=NewMail.end(); p++) {
     CMOOSMsg &msg = *p;
+    string key   = msg.GetKey();
+    string s  = msg.GetString();
+
+    if(key == "AddMarker"){
+      Notify("VIEW_MARKER",s);
+    }
+
 
 #if 0 // Keep these around just for template
     string key   = msg.GetKey();
@@ -160,13 +167,33 @@ if (initialize == 0)
     Notify("VIEW_SEGLIST",s);
   }
 
-  // GA2
-  s = "radial:: x=139, y=-130, radius=30, pts=8, snap=1, label= GA2";
-  Notify("VIEW_POLYGON",s);
+/*
+  //total area 3*3
+  s= "pts={-140,-84:100,-84},  edge_color=red, label= top";
+  Notify("VIEW_SEGLIST",s);
+
+  s= "pts={100,-84:100,-324},  edge_color=red, label= left";
+  Notify("VIEW_SEGLIST",s);
+
+  s= "pts={-140,-84:-140,-324},  edge_color=red, label= right";
+  Notify("VIEW_SEGLIST",s);
+
+  s= "pts={-140,-324:100,-324},  edge_color=red, label= bottom";
+  Notify("VIEW_SEGLIST",s);
+
+  // grace
+  s= "pts={-61,-84:-61,-324},  edge_color=blue, edge_size=3, label= grace";
+  Notify("VIEW_SEGLIST",s);
+
+  // franklin
+  s= "pts={19,-84:19,-324},  edge_color=yellow, edge_size=3, label= franklin";
+  Notify("VIEW_SEGLIST",s);
+*/
+
 
   // GA1
-  s = "radial:: x=-23, y=-130, radius=30, pts=8, snap=1,  label= GA1";
-  Notify("VIEW_POLYGON",s);
+  //s = "radial:: x=-23, y=-130, radius=30, pts=8, snap=1,  label= GA1";
+  //Notify("VIEW_POLYGON",s);
 
 
 
@@ -210,5 +237,7 @@ bool visual::OnStartUp()
 
 void visual::RegisterVariables()
 {
+    Register("RemoveMarker", 0);
+    Register("AddMarker", 0);
   // Register("FOOBAR", 0);
 }

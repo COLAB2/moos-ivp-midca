@@ -82,4 +82,6 @@ killall -9 uSpeechRec uDialogManager
 
 killall -9 pAntler pLogger 
 
+killall -9 pmidca pvisual prelocate
+
 echo Done - Killed all MOOS-Related Processes.....

@@ -40,6 +40,16 @@ def communicate(n):
 
     if str(address) == "Vehicle":
         # print the current position
+        #print (content)
+        pass
+
+    subscriber_remus.setsockopt(zmq.SUBSCRIBE, "SearchComplete")
+    # get the message from the ip address
+    [address, content] = subscriber_remus.recv_multipart(copy=False)
+    subscriber_remus.setsockopt(zmq.UNSUBSCRIBE, "SearchComplete")
+
+    if str(address) == "SearchComplete":
+        # print the current position
         print (content)
 
     communicate(n-1)
@@ -88,6 +98,6 @@ def AddMine():
 if __name__ == "__main__":
     send_waypoints()
     #time.sleep(13)
-    communicate(10)
+    #communicate(10)
     #RemoveMine()
     #AddMine()

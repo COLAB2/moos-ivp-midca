@@ -1,0 +1,4 @@
+,Anomalies(#),Blockade(#),Change(#),DeepSurveyedGoals(#),DeepSurveyedGoals(Positions),Hotspots(#),Hotspots(Positions),RemoraAttacks(#),SurveyedGoals(#),SurveyedGoals(Positions),index
+index,8,4,1,1,Tx1y3,1,Tx1y3,4,5,Tx0y3;Tx3y3;Tx1y3;Tx2y3;Tx1y3,0
+index,4,2,0,0,,0,,2,4,Tx0y3;Tx0y2;Tx2y2;Tx1y2,1
+index,4,3,0,0,,0,,1,1,Tx0y1,2

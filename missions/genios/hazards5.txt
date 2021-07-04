@@ -1,0 +1,11 @@
+hazard = x=11,y=-71,label= 1, type=hazard
+hazard = x=87,y=-63,label= 2,type=hazard
+hazard = x=137,y=-72,label= 3,type=hazard
+hazard = x=157,y=-89,label= 4,type=hazard
+hazard = x=166,y=-73,label= 5,type=hazard
+hazard = x=32,y=-76,label= 9,type=benign
+hazard = x=5,y=-21,label= 12,type=hazard
+hazard = x=10,y=-84,label= 36,type=hazard
+hazard = x=24,y=-71,label= 37,type=hazard
+hazard = x=24,y=-90,label= 38,type=hazard
+hazard = x=142,y=-89,label= 44,type=hazard
