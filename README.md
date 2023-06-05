@@ -14,7 +14,7 @@ Works fine on mac-os.
    $ cd moos-ivp
    $ git clone https://github.com/COLAB2/moos-ivp-midca.git
    $ cd moos-ivp-midca
-   $ git checkout moos_agda
+   $ git checkout multi_agent
    ```
 4. Navigate to the moos-ivp-midca directory, you will find a README file follow the instruction to install moos-ivp-midca
 5. Navigate to the moos-ivp/ivp/src directory, delete the folder named "uFldHazardSensor" (follow the instructions below)
