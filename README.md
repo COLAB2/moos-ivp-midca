@@ -46,9 +46,11 @@ Works fine on mac-os.
 
 # Run the Demo
 1. Run the mooos applications
+    ```
     $ cd moos-ivp/moos-ivp-midca/missions/new
     $ ./clean.sh
     $ ./launch.sh
+    ```
    A GUI Window will appear, please hit Deploy button.
    
 2. Run MIDCA, navigate to the midca directory
