@@ -47,7 +47,7 @@ Works fine on mac-os.
 # Run the Demo
 1. Run the mooos applications
     ```
-    $ cd moos-ivp/moos-ivp-midca/missions/new
+    $ cd moos-ivp/moos-ivp-midca/missions/test
     $ ./clean.sh
     $ ./launch.sh
     ```
