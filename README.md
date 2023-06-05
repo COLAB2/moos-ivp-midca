@@ -54,9 +54,11 @@ Works fine on mac-os.
    A GUI Window will appear, please hit Deploy button.
    
 2. Run MIDCA, navigate to the midca directory
+    ```
     $ cd midca/midca
     $ cd examples
     $ python moos_nsf.py
+    ```
    And then hit Enter.
    
    
