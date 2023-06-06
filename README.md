@@ -80,7 +80,7 @@ Works fine on mac-os.
     ```
     $ cd midca/midca
     $ cd examples
-    $ python midca_structured_search_grace.py
+    $ python midca_structured_search_grace.py 0
     ```
    And then hit Enter.
    
