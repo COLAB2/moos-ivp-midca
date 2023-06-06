@@ -14,10 +14,10 @@ Processconfig = ANTLER
   MSBetweenLaunches = 400
 
   Run = MOOSDB           @ NewConsole = false
-  //Run = pMarineViewer    @ NewConsole = false
+  Run = pMarineViewer    @ NewConsole = false
   Run = pShare           @ NewConsole = false
   Run = pHostInfo        @ NewConsole = false
-  //Run = pvisual	         @ NewConsole = false
+  Run = pvisual	         @ NewConsole = false
   Run = uFldShoreBroker  @ NewConsole = false
   Run = uFldHazardSensor @ NewConsole = false
 
