@@ -23,12 +23,14 @@ Works fine on mac-os.
    $ git checkout multi_agent
    $ mkdir lib
    ```
-5. Navigate to the moos-ivp-midca directory, you will find a README file follow the instruction to install moos-ivp-midca. (NOTE: If you are building MOOS for the very first time, then must run commands from lines 47 - 51 in the README file.
+5. Navigate to the moos-ivp-midca directory, you will find a README file follow the instruction to install moos-ivp-midca. (NOTE: If you are building MOOS for the very first time, then must run commands from lines 47 - 51 in the README file.)
+   ```
    $ mkdir -p build
    $ cd build
    $ cmake ../
    $ make
-   $ cd .. )
+   $ cd .. 
+   ``` 
 
 6. Navigate to the moos-ivp/ivp/src directory, delete the folders "uFldHazardSensor" (follow the instructions below)
     ```
